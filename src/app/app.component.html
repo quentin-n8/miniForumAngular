@@ -8,12 +8,10 @@
 </head>
 <body>
     <header>
-        <div>
-            <button>Accueil</button>
-            <button *ngIf="!isConnected">Modifier mon compte</button>
-            <button *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
-            <button *ngIf="isConnected">Créer un compte</button>
-            <button *ngIf="isConnected" (click)="seDeconnecter()">Se connecter</button>
-        </div>
+        <button class="headerB">Accueil</button>
+        <button class="headerB" *ngIf="!isConnected">Modifier mon compte</button>
+        <button class="headerB" *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
+        <button class="headerB" *ngIf="isConnected">Créer un compte</button>
+        <button class="headerB" *ngIf="isConnected" (click)="seDeconnecter()">Se connecter</button>
     </header>
 </body>
