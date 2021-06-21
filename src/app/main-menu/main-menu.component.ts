@@ -11,6 +11,19 @@ export class MainMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("test");
   }
+
+  seConnecter(): void {
+    this.isConnected = true;
+    console.log(this.isConnected);
+  }
+
+  seDeconnecter(): void {
+    this.isConnected = false;
+    console.log(this.isConnected);
+  }
+
+
 
 }

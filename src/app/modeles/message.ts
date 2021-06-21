@@ -1,7 +1,7 @@
 import { User } from "./User";
 import { Sujet } from "./sujet";
 
-interface Message {
+export interface Message {
     id?: number;
     content: string;
     date: Date;
