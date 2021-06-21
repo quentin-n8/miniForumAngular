@@ -10,6 +10,8 @@ export class FormModifierCompteComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("OK");
+    
   }
 
 }

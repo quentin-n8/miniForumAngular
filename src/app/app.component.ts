@@ -18,4 +18,6 @@ export class AppComponent {
     this.isConnected = false;
     console.log(this.isConnected);
   }
+  
+  
 }
