@@ -7,7 +7,7 @@
     <title>CreationForm</title>
 </head>
 <body>
-
+    <main>
     <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()">
         
         <input type="text" name="username" formControlName="username">
@@ -19,6 +19,6 @@
         <button type="submit" [disabled]="CreationForm.invalid">Créer</button>
 
     </form> 
-    
+</main>
 </body>
 </html>
