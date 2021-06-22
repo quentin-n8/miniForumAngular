@@ -4,6 +4,7 @@ import { Message} from "../modeles/message";
 
 @Injectable()
 export class MessageService {
+
     messages: Message[] = [];
     apiURL = "http://localhost:8080";
 
@@ -14,7 +15,7 @@ export class MessageService {
     getMessages() {
         
         //GET request :
-        this.httpClient.get<Message[]>(this.apiURL, { observe: 'body' })
+        this.httpClient.get<Message[]>(this.apiURL +"/api/user", { observe: 'body' })
         .subscribe((messagesFromApi: Message[]) => {
             this.messages = messagesFromApi;
         }, error => {
