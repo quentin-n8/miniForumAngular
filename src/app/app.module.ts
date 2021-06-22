@@ -8,7 +8,7 @@ import { CreationFormComponent } from './creation-form/creation-form.component';
 import { UsersService } from './services/users.service';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  // { path: '', component: AppComponent },
   { path: "createUserForm", component: CreationFormComponent },
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
   { path: '**', redirectTo: ''}                    //###TODO reasign to not-found page when created

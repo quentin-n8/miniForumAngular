@@ -5,25 +5,24 @@ import { User } from "../modeles/User";
 @Injectable()
 export class UsersService {
 
-  users_list: User []= [];
   apiUrl= "http://localhost:8080/api"
-
   constructor(private httpClient: HttpClient) {
     
   }
 
-  recupUser(){
+  recupUser(): User[] {
+    let userslist: User[]= [];
     this.httpClient.get<User[]>(this.apiUrl+"/user", {observe: "body"})
     .subscribe(usersFromApi => { 
-      this.users_list= usersFromApi;
+      userslist= usersFromApi;
     }, error => { 
       console.log("Error :"+error);
     });
-
+    return userslist;
   }
 
   createUser(user: User){
-    this.httpClient.post<User>(this.apiUrl+"/user", {name: user.username, password: user.password})
+    this.httpClient.post<User>(this.apiUrl+"/user", {username: user.username, password: user.password})
     .subscribe(responseFromApi => { 
       console.log(responseFromApi);
     }, error => { 

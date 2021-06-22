@@ -8,17 +8,23 @@
 </head>
 <body>
 
-    <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()">
-        
-        <input type="text" name="username" formControlName="username">
-       
-        <input type="password" name="password" formControlName="password">
-        
-        <input type="password" name="password_confirm" formControlName="password_confirm">
-        
-        <button type="submit" [disabled]="CreationForm.invalid">Créer</button>
+    <main>
 
-    </form> 
+        <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()">
+            
+            <div><input type="text" name="username" formControlName="username"></div><br>
+        
+            <div><input type="password" name="password" formControlName="password"></div><br>
+            
+            <div><input type="password" name="password_confirm" formControlName="password_confirm"></div><br>
+
+            <div><intput type="checkbox" name="save_localstorage" formControlName="save_localstorage">Se souvenir de moi</intput></div><br>
+            
+            <div><button type="submit" [disabled]="CreationForm.invalid">Créer</button></div>
+
+        </form> 
+
+    </main>
     
 </body>
 </html>
