@@ -8,13 +8,20 @@
 </head>
 <body>
     <header>
+
+
         <button class="headerB hSelected">Accueil</button>
         <button class="headerB hUnselected" *ngIf="!isConnected">Modifier mon compte</button>
         <button class="headerB hUnselected" *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
         <button class="headerB hUnselected" *ngIf="isConnected">Créer un compte</button>
         <button class="headerB hUnselected" *ngIf="isConnected" (click)="seDeconnecter()">Se Deconnecter</button>
+
     </header>
+
+
     <main>
         <app-accueil-new-subject></app-accueil-new-subject>
     </main>
+
+
 </body>
