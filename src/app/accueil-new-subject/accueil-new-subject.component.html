@@ -1,0 +1,8 @@
+<form [formGroup]="newSubjectForm" (ngSubmit)="onSubmitNewSubject()">
+    <input type="text" name="newTitle" formControlName="newTitle"/>
+    <span *ngIf="newSubjectForm.dirty && newSubjectForm.controls.newTitle.invalid">Error in title</span>
+    <textarea name="newMessage" formControlName="newMessage" rows="5"></textarea>
+    <span *ngIf="newSubjectForm.dirty && newSubjectForm.controls.newMessage.invalid">Error in title</span>
+    <button type="submit" [disabled]="newSubjectForm.invalid">Ajouter un nouveau sujet</button>
+</form>
+
