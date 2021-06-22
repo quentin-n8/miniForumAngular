@@ -21,7 +21,12 @@ export class AppComponent {
     console.log(this.isConnected);
   }
 
+
   //testSujet(): void {
   //  this.router.navigate(['test']);
   //}
+
+  
+  
+
 }

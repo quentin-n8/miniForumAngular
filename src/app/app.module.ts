@@ -5,9 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SujetDetailsComponent } from './sujet-details/sujet-details.component';
 import { CreationFormComponent } from './creation-form/creation-form.component';
+import { FormModifierCompteComponent } from './form-modifier-compte/form-modifier-compte.component';
+import { MessageService } from './services/messageService';
+
 
 const routes: Routes = [
   { path: '', component: AppComponent },
+  {path:'ModifierCompte', component: FormModifierCompteComponent},
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
   { path: '**', redirectTo: ''},                    //###TODO reasign to not-found page when created
   { path: 'test', component: SujetDetailsComponent } 
@@ -19,12 +23,13 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     SujetDetailsComponent,
-    CreationFormComponent
+    CreationFormComponent,
+    FormModifierCompteComponent
   ],
   imports: [
     BrowserModule, ReactiveFormsModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
