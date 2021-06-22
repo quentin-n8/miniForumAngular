@@ -10,7 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AccueilNewSubjectComponent implements OnInit {
   newSubjectForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder) { 
+    
+  }
 
   ngOnInit(): void {
     this.newSubjectForm = this.formBuilder.group({

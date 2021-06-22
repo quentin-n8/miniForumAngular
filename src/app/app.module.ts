@@ -8,15 +8,17 @@ import { SujetDetailsComponent } from './sujet-details/sujet-details.component';
 import { CreationFormComponent } from './creation-form/creation-form.component';
 import { FormModifierCompteComponent } from './form-modifier-compte/form-modifier-compte.component';
 import { MessageService } from './services/messageService';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
 const routes: Routes = [
-  { path: 'accueil', component: AccueilNewSubjectComponent},
-  {path:'ModifierCompte', component: FormModifierCompteComponent},
-  { path: '', component: AppComponent },
+  { path: 'accueil', component: AccueilNewSubjectComponent },
+  { path: 'modifierCompte', component: FormModifierCompteComponent },
+  { path: 'creationCompte', component: CreationFormComponent},
+  // { path: '', component: AppComponent },
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
-  { path: '**', redirectTo: ''},                    //###TODO reasign to not-found page when created
+  { path: '**', redirectTo: 'accueil'},                    //###TODO reasign to not-found page when created
   { path: 'test', component: SujetDetailsComponent } 
 ]
 
@@ -32,7 +34,9 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
