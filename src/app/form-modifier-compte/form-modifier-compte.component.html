@@ -1,0 +1,26 @@
+<body>
+    <main>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div>
+                <input type="text" placeholder="Modifier l'username" name="nvUsername" formControlName="nvUsername">
+                <p *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid">Message d'erreur: {{ getUsernameErrors() }}</p>
+            </div>
+            <div>
+                <input type="password" placeholder="Mot de passe actuel" name="actuelPassword" >
+            </div>
+            <div>
+                <input type="password" placeholder="Nouveau le mot de passe" name="nvPassword" formControlName="nvPassword">
+                <p *ngIf="myForm.dirty && myForm.controls.nvPassword.invalid">Message d'erreur: {{ getnvPasswordErrors() }}</p>
+           
+            </div>
+            <div>
+                <input type="password" placeholder="Confirmer le nouveau mot de passe" name="confirPassword">
+                <p *ngIf="myForm.dirty">{{getConfirPasswordErrors()}}</p>
+            </div>
+            <div>
+                <button type="submit">Modifier le compte</button>
+            </div>
+
+        </form>
+    </main>
+</body>

@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CreationForm</title>
 </head>
+
 <body>
 
     <main>
 
         <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()">
-            
-            <div><input type="text" name="username" formControlName="username"></div><br>
         
             <div><input type="password" name="password" formControlName="password"></div><br>
             
             <div><input type="password" name="password_confirm" formControlName="password_confirm"></div><br>
 
-            <div><intput type="checkbox" name="save_localstorage" formControlName="save_localstorage">Se souvenir de moi</intput></div><br>
+            <div><mat-checkbox class="example-margin" [(ngModel)]="checked">Checked</mat-checkbox></div><br>
             
             <div><button type="submit" [disabled]="CreationForm.invalid">Créer</button></div>
 
         </form> 
 
+
     </main>
-    
+
 </body>
 </html>

@@ -19,9 +19,10 @@ export class CreationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.CreationForm= this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), ]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('.*[0-9]+.*'), Validators.pattern('.*[A-Z]+.*'), Validators.pattern('.*[^A-Za-z0-9]+.*')]],
-      password_confirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.apply, passwordEqualityValidator]]
+      password_confirm: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      save_localstorage: ['']
 
     });
   }
@@ -32,13 +33,6 @@ export class CreationFormComponent implements OnInit {
     console.log(this.user);
     this.userservice.createUser(this.user);
 
-  }
-
-  usernameExistingValidator(username: String): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const forbidden = username.test(control.value);
-      return forbidden ? {forbiddenName: {value: control.value}} : null;
-    };
   }
 
 }
