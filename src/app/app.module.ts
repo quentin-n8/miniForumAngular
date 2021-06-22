@@ -7,7 +7,8 @@ import { SujetDetailsComponent } from './sujet-details/sujet-details.component';
 const routes: Routes = [
   { path: '', component: AppComponent },
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
-  { path: '**', redirectTo: ''}                    //###TODO reasign to not-found page when created
+  { path: '**', redirectTo: ''},                    //###TODO reasign to not-found page when created
+  { path: 'test', component: SujetDetailsComponent } 
 ]
 
 

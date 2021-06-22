@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
   isConnected = false;
 
+  //constructor(private router : Router) {}
+
   seConnecter(): void {
     this.isConnected = true;
     console.log(this.isConnected);
@@ -18,4 +20,8 @@ export class AppComponent {
     this.isConnected = false;
     console.log(this.isConnected);
   }
+
+  //testSujet(): void {
+  //  this.router.navigate(['test']);
+  //}
 }

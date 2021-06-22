@@ -11,14 +11,14 @@ import { SujetsService } from '../services/sujetsService';
 export class SujetDetailsComponent implements OnInit {
 
   //sujet = new Sujet(2, "Pif paf pouf", 21651656, new User("Orane Monteil", "azerty"));
-  sujet = SujetsService
+  //sujet = SujetsService
 
   constructor(private service: SujetsService) { }
 
   ngOnInit(): void {
   }
 
-  test() {
+  test(): string {
     return this.service.recupUnSujet(4)[0].title;
   }
 
