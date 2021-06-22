@@ -8,14 +8,14 @@
 </head>
 <body>
 
-    <form (formGroup)="CreationForm" (ngsubmit)="onSubmit()">
+    <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()">
         
         <input type="text" name="username" formControlName="username">
-        <label for="username" name="username_label" style:color="red"></label>
+       
         <input type="password" name="password" formControlName="password">
-        <label for="password" name="password_label" style:color="red"></label>
+        
         <input type="password" name="password_confirm" formControlName="password_confirm">
-        <label for="password_confirm" name="password_confirm_label" style:color="red"></label>
+        
         <button type="submit" [disabled]="CreationForm.invalid">Créer</button>
 
     </form> 

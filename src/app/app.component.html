@@ -11,7 +11,13 @@
         <button class="headerB">Accueil</button>
         <button class="headerB" *ngIf="!isConnected">Modifier mon compte</button>
         <button class="headerB" *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
-        <button class="headerB" *ngIf="isConnected">Créer un compte</button>
+        <button class="headerB" routerLink="createUserForm" *ngIf="isConnected">Créer un compte</button>
         <button class="headerB" *ngIf="isConnected" (click)="seDeconnecter()">Se connecter</button>
     </header>
+
+    
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+
 </body>
