@@ -1,7 +1,7 @@
-:root{
-    --bleu-claire: cornflowerblue;
-    --bleu: dodgerblue;
-    --bleu-foncé: mediumblue;
+body {
+    --bleu-claire: #79A3D4;
+    --bleu: #3D80CC;
+    --bleu-foncé: #0000CD;
     --transparence: #00000000;
     --marge: 1em;
 
@@ -16,7 +16,7 @@ header {
 }
 
 button.headerB {
-    color: var(--bleu-claire);
+    color: var(--bleu);
     background-color: var(--transparence);
     font-size: 1.3em;
     border-left: none;
@@ -32,6 +32,6 @@ button.hSelected {
     border-bottom: 5px solid var(--bleu);
 }
 
-button.hHover {
+button:hover {
     border-bottom: 5px solid var(--bleu-foncé);
 }
