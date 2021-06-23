@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   isConnected = false;
 
-  //constructor(private router : Router) {}
+  constructor(private router : Router, private activatedRoute : ActivatedRoute) {}
 
   seConnecter(): void {
     this.isConnected = true;
@@ -21,12 +21,11 @@ export class AppComponent {
     console.log(this.isConnected);
   }
 
+  redirectToSujet(): void {
+    this.router.navigate(['sujetDetails']);
+  }
 
-  //testSujet(): void {
-  //  this.router.navigate(['test']);
-  //}
 
-  
   
 
 }

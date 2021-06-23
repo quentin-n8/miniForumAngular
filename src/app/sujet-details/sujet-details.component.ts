@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Sujet } from '../modeles/sujet';
 import { User } from '../modeles/User';
+import { Message } from '../modeles/message';
 import { SujetsService } from '../services/sujetsService';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from '../services/messageService';
 
 @Component({
   selector: 'app-sujet-details',
@@ -9,17 +12,32 @@ import { SujetsService } from '../services/sujetsService';
   styleUrls: ['./sujet-details.component.css']
 })
 export class SujetDetailsComponent implements OnInit {
+  creationMessage!: FormGroup;
 
-  //sujet = new Sujet(2, "Pif paf pouf", 21651656, new User("Orane Monteil", "azerty"));
-  //sujet = SujetsService
 
-  constructor(private service: SujetsService) { }
+  constructor(private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
+    this.creationMessage = this.formBuilder.group({
+      message: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(3000)]]
+    });
   }
 
-  test(): string {
-    return this.service.recupUnSujet(4)[0].title;
+  titreSujet(): string {
+    let newDate = new Date(this.sujetService.recupUnSujet(4)[0].date * 1000);
+    let year = newDate.getFullYear();
+    let month = newDate.getMonth();
+    let day = newDate.getDay();
+    return this.sujetService.sujets[0].title + ' le ' + day + '/' + month + '/' + year;
+  }
+
+  onSubmit(): void {
+    console.log(this.creationMessage.value.message);
+
+  }
+
+  getMessages() : Message[] {
+    return this.messageService.messages;
   }
 
 }

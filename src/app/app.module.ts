@@ -7,14 +7,18 @@ import { SujetDetailsComponent } from './sujet-details/sujet-details.component';
 import { CreationFormComponent } from './creation-form/creation-form.component';
 import { FormModifierCompteComponent } from './form-modifier-compte/form-modifier-compte.component';
 import { MessageService } from './services/messageService';
+import { HttpClientModule } from '@angular/common/http';
+import { SujetsService } from './services/sujetsService';
+
 
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: 'sujetDetails', component: SujetDetailsComponent } ,
+  //{ path: '', component: AppComponent },
   {path:'ModifierCompte', component: FormModifierCompteComponent},
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
-  { path: '**', redirectTo: ''},                    //###TODO reasign to not-found page when created
-  { path: 'test', component: SujetDetailsComponent } 
+  { path: '**', redirectTo: ''}                    //###TODO reasign to not-found page when created
+  
 ]
 
 
@@ -26,10 +30,8 @@ const routes: Routes = [
     CreationFormComponent,
     FormModifierCompteComponent
   ],
-  imports: [
-    BrowserModule, ReactiveFormsModule
-  ],
-  providers: [MessageService],
+  imports: [BrowserModule, ReactiveFormsModule, RouterModule.forRoot(routes), HttpClientModule],
+  providers: [MessageService, SujetsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

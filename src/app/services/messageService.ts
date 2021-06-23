@@ -6,21 +6,34 @@ import { Message} from "../modeles/message";
 export class MessageService {
     messages: Message[] = [];
     apiURL = "http://localhost:8080";
+    n: number = 1;
 
     constructor(private httpClient: HttpClient) {
+        this.httpClient.get<Message[]>(this.apiURL + '/api/message', { observe: 'body' })
+            .subscribe((messagesFromApi: Message[]) => {
+                console.log(messagesFromApi);
+                this.messages = messagesFromApi;
+            }, error => {
+                console.log("Erreur: " + error);
 
+            });
     }
 
     getMessages() {
-        
-        //GET request :
-        this.httpClient.get<Message[]>(this.apiURL, { observe: 'body' })
-        .subscribe((messagesFromApi: Message[]) => {
-            this.messages = messagesFromApi;
-        }, error => {
-            console.log("Erreur: " + error);
+        if (this.n === 1) {
+            //GET request :
+            this.httpClient.get<Message[]>(this.apiURL, { observe: 'body' })
+            .subscribe((messagesFromApi: Message[]) => {
+                console.log(messagesFromApi);
+                this.messages = messagesFromApi;
+            }, error => {
+                console.log("Erreur: " + error);
 
-        });
+            });
+            this.n++;
+        }
+        
+        return this.messages;
     }
 
     postMessage(){

@@ -18,13 +18,12 @@
 
     </header>
 
-
     <main>
-
         
-        <a routerLink="test">sujet 4</a>
+        <router-outlet></router-outlet>
+        <a routerLink="sujetDetails">detail d'un sujet</a>
+        <button (click)="redirectToSujet()">Sujet !</button>
         
     </main>
-
 
 </body>
