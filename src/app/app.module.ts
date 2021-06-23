@@ -9,11 +9,12 @@ import { CreationFormComponent } from './creation-form/creation-form.component';
 import { FormModifierCompteComponent } from './form-modifier-compte/form-modifier-compte.component';
 import { MessageService } from './services/messageService';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
 const routes: Routes = [
-  { path: 'accueil', component: AccueilNewSubjectComponent },
+  { path: 'accueil', component: AccueilNewSubjectComponent},
   { path: 'modifierCompte', component: FormModifierCompteComponent },
   { path: 'creationCompte', component: CreationFormComponent},
   // { path: '', component: AppComponent },
@@ -36,7 +37,8 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
