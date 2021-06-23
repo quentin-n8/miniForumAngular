@@ -27,6 +27,8 @@ export class CreationFormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.CreationForm.value);
     this.user= this.CreationForm.value;
+    console.log(this.user);
+    
     this.userservice.createUser(this.user);
 
   }
