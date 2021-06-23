@@ -15,7 +15,6 @@ import { UsersService } from '../services/users.service';
 })
 export class SujetDetailsComponent implements OnInit, OnDestroy {
   creationMessage!: FormGroup;
-  topics: Sujet[] = [];
   topic!: any;
   topicSubscription!: Subscription;
   message= new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(3000)]);
