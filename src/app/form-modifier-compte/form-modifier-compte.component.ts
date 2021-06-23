@@ -63,8 +63,9 @@ export class FormModifierCompteComponent implements OnInit {
       return "Les mots de passe ne sont pas identiques !";
     }
   }
+
+  // Validator custom permettant de vérifier que le nouveau mot de passe et la confirmation sont identiques
   passwordConfirmValidator(): ValidatorFn {
-    // validator custom qui vérifie le mot de passe ou lors de la soumission du formulaire vérifier si les champs sont égaux sinon mettre en erreur un des champs (this.myForm.controls.mdp)
 
     return (control: AbstractControl): {
       [key: string]: any} | null => {
