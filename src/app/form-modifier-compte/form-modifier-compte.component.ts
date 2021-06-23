@@ -5,11 +5,13 @@ import { AbstractControl } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { User } from '../modeles/User';
 import { UsersService } from '../services/users.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-form-modifier-compte',
   templateUrl: './form-modifier-compte.component.html',
-  styleUrls: ['./form-modifier-compte.component.css']
+  styleUrls: ['./form-modifier-compte.component.css'],
+
 })
 export class FormModifierCompteComponent implements OnInit {
 
