@@ -17,9 +17,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { SujetsService } from './services/sujetsService';
 
 
 const routes: Routes = [
+  { path: "sujetDetails", component: SujetDetailsComponent },
   // { path: '', component: AppComponent },
   { path: "createUserForm", component: CreationFormComponent },
   { path:'modifierCompte', component: FormModifierCompteComponent},
@@ -54,7 +56,8 @@ const routes: Routes = [
   ],
   providers: [
     MessageService,
-    UsersService
+    UsersService,
+    SujetsService
   ],
   bootstrap: [AppComponent]
 })
