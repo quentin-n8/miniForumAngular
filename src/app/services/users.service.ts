@@ -14,7 +14,9 @@ export class UsersService {
     let userslist: User[]= [];
     this.httpClient.get<User[]>(this.apiUrl+"/user", {observe: "body"})
     .subscribe(usersFromApi => { 
-      userslist= usersFromApi;
+      usersFromApi.forEach( user => {
+        userslist.push(user);
+      });
     }, error => { 
       console.log("Error :"+error);
     });
