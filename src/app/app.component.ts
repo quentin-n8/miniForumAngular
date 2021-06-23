@@ -21,11 +21,9 @@ export class AppComponent {
     console.log(this.isConnected);
   }
 
+
   redirectToSujet(): void {
     this.router.navigate(['sujetDetails']);
   }
-
-
-  
 
 }

@@ -4,6 +4,7 @@ import { Message} from "../modeles/message";
 
 @Injectable()
 export class MessageService {
+
     messages: Message[] = [];
     apiURL = "http://localhost:8080";
     n: number = 1;
@@ -22,17 +23,14 @@ export class MessageService {
     getMessages() {
         if (this.n === 1) {
             //GET request :
-            this.httpClient.get<Message[]>(this.apiURL, { observe: 'body' })
+            this.httpClient.get<Message[]>(this.apiURL +"/api/user", { observe: 'body' })
             .subscribe((messagesFromApi: Message[]) => {
-                console.log(messagesFromApi);
                 this.messages = messagesFromApi;
             }, error => {
                 console.log("Erreur: " + error);
-
             });
             this.n++;
-        }
-        
+            }
         return this.messages;
     }
 

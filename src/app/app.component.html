@@ -7,23 +7,28 @@
     <title>Super forum</title>
 </head>
 <body>
+    
     <header>
 
 
         <button class="headerB hSelected">Accueil</button>
-        <button class="headerB hUnselected" *ngIf="!isConnected">Modifier mon compte</button>
+        <button class="headerB hUnselected" routerLink="modifierCompte"*ngIf="!isConnected">Modifier mon compte</button>
         <button class="headerB hUnselected" *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
-        <button class="headerB hUnselected" *ngIf="isConnected">Créer un compte</button>
+        <button class="headerB hUnselected" routerLink ="createUserForm"*ngIf="isConnected">Créer un compte</button>
         <button class="headerB hUnselected" *ngIf="isConnected" (click)="seDeconnecter()">Se Deconnecter</button>
 
     </header>
 
+
     <main>
         
         <router-outlet></router-outlet>
-        <a routerLink="sujetDetails">detail d'un sujet</a>
         <button (click)="redirectToSujet()">Sujet !</button>
         
+
+    
+    
+   
     </main>
 
 </body>

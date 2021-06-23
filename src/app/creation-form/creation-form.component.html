@@ -6,19 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CreationForm</title>
 </head>
+
 <body>
 
-    <form (formGroup)="CreationForm" (ngsubmit)="onSubmit()">
-        
-        <input type="text" name="username" formControlName="username">
-        <label for="username" name="username_label" style:color="red"></label>
-        <input type="password" name="password" formControlName="password">
-        <label for="password" name="password_label" style:color="red"></label>
-        <input type="password" name="password_confirm" formControlName="password_confirm">
-        <label for="password_confirm" name="password_confirm_label" style:color="red"></label>
-        <button type="submit" [disabled]="CreationForm.invalid">Créer</button>
+    <main>
 
-    </form> 
-    
+        <form [formGroup]="CreationForm" (ngSubmit)="onSubmit()" class="form">
+        
+            <br><div class="username">
+                <mat-form-field appearance="fill">
+                    <mat-label>Entrez votre nom d'utilisateur</mat-label>
+                    <input matInput placeholder="" formControlName="username">
+                    <mat-error *ngIf="CreationForm.invalid">{{getUsernameMessage()}}</mat-error>
+                </mat-form-field>
+            </div><br>
+            
+            <div class="password">
+                <mat-form-field appearance="fill">
+                    <mat-label>Entrez votre mot de passe</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <mat-error *ngIf="CreationForm.invalid">{{getPasswordMessage()}}</mat-error>
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div><br>
+            
+            <div class="password">
+                <mat-form-field appearance="fill">
+                    <mat-label>Confirmez votre mot de passe</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password_confirm">
+                    <mat-error *ngIf="CreationForm.invalid">{{getConfirmMessage()}}</mat-error>
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div><br>
+
+            <div><mat-checkbox formControlName="save_localstorage" color="primary">Se souvenir de moi</mat-checkbox></div><br>
+            
+            <div class="button">
+                <button type="submit" mat-raised-button color="primary" [disabled]="CreationForm.invalid">Créer un compte</button>
+            </div>
+
+        </form> 
+
+
+    </main>
+
 </body>
 </html>
