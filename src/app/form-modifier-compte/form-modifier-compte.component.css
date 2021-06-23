@@ -1,0 +1,34 @@
+body {
+    --bleu-claire: #79A3D4;
+    --bleu: #3D80CC;
+    --bleu-foncé: #0000CD;
+    --transparence: #00000000;
+    --marge: 1em;
+
+    margin: 30px 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 80px;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 20px;
+    border-color: #3D80CC ;
+    border-radius: 4px;
+    
+}
+
+input:focus{
+    border: 3px solid #0000CD;
+}
+
+button{
+    border-radius: 4px;
+    width: 100%;
+}
+

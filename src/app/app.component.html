@@ -7,6 +7,7 @@
     <title>Super forum</title>
 </head>
 <body>
+    
     <header>
         <button class="headerB hUnselected" [class.hSelected]="menuPosition === 0" (click)="redirectToAccueil()">Accueil</button>
         <button class="headerB hUnselected" [class.hSelected]="menuPosition === 1" *ngIf="!isConnected" (click)="redirectToModifierCompte()">Modifier mon compte</button>
@@ -14,8 +15,8 @@
         <button class="headerB hUnselected" [class.hSelected]="menuPosition === 3" *ngIf="isConnected" (click)="redirectToCreationCompte()">Créer un compte</button>
         <button class="headerB hUnselected" [class.hSelected]="menuPosition === 4" *ngIf="isConnected" (click)="redirectToseDeconnecter()">Se Deconnecter</button>
     </header>
-
-
+    
+    
     <main>
         <router-outlet></router-outlet>
     </main>

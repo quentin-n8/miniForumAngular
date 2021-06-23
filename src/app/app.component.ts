@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-root',
@@ -45,11 +44,5 @@ export class AppComponent {
     console.log(this.isConnected);
   }
 
-  //testSujet(): void {
-  //  this.router.navigate(['test']);
-  //}
-
-  
-  
 
 }
