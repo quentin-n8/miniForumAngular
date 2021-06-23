@@ -9,8 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreationFormComponent } from './creation-form/creation-form.component';
 import { UsersService } from './services/users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { SujetsService } from './services/sujetsService';
+
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -33,7 +38,14 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule, 
     HttpClientModule, 
-    RouterModule.forRoot(routes), BrowserAnimationsModule, MatButtonModule
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [MessageService, UsersService],
 
