@@ -10,12 +10,13 @@
 
     <main>
 
-        <h1>  {{ titreSujet() }}  </h1>
+        <h1>  {{ titreSujet()  }}  </h1>
+        <h2>  {{ sousTitreSujet() }}  </h2>
 
         <p *ngFor="let message of getMessages()">
             
             <!-- Par {{ message.author_id.username }} -->
-            Le {{ message.date }}. <br>
+            Le {{ convertTimestampEnDate(message.date) }}. <br>
             {{ message.content }}.
         </p>
 
@@ -23,6 +24,7 @@
 
             <input type="text" name="message" formControlName="message">
             <button type="submit" [disabled]="creationMessage.invalid">Répondre au sujet</button>
+            <mat-error *ngIf="creationMessage.invalid">{{getErrorMessage()}}</mat-error>
 
         </form> 
 

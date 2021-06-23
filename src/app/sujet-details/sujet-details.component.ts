@@ -3,7 +3,7 @@ import { Sujet } from '../modeles/sujet';
 import { User } from '../modeles/User';
 import { Message } from '../modeles/message';
 import { SujetsService } from '../services/sujetsService';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../services/messageService';
 import { Subscription } from 'rxjs';
 
@@ -15,16 +15,17 @@ import { Subscription } from 'rxjs';
 export class SujetDetailsComponent implements OnInit, OnDestroy {
   creationMessage!: FormGroup;
   topics: Sujet[] = [];
-  topic: any;
+  topic!: any;
   topicSubscription!: Subscription;
   messages: Message[] = [];
   messageSubscription!: Subscription;
+  message= new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(3000)]);
 
   constructor(private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
     this.creationMessage = this.formBuilder.group({
-      message: ['', [Validators.minLength(0)]]    // Validators.required, , Validators.maxLength(3000)
+      message: ['', [Validators.required, , Validators.maxLength(3000), Validators.minLength(0)]] 
     });
     this.topicSubscription = this.sujetService.topicSubject.subscribe((topic: Sujet) => {
       this.topic = topic;
@@ -39,12 +40,17 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   }
 
   titreSujet(): string {
-    console.log(this.topic);
+    return this.topic.title;
+  }
+
+  sousTitreSujet(): string {
     let newDate = new Date(this.topic.date * 1000);
     let year = newDate.getFullYear();
     let month = newDate.getMonth();
     let day = newDate.getDay();
-    return this.topic.title + ' le ' + day + '/' + month + '/' + year;
+    let hour = newDate.getHours();
+    let minute = newDate.getMinutes();
+    return 'Posté le ' + day + '/' + month + '/' + year + ' à ' + hour + ':' + minute + ' par ' + this.topic.author.username;
   }
 
   onSubmit(): void {
@@ -54,13 +60,34 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   }
 
   getMessages() : Message[] {
-    console.log(this.messages);
+    // const listMessagesDuSujet: Message[] = [];
+    // this.messages.forEach(message => {
+    //   console.log("------- " + message.topic_id.id + " === " + this.topic.id);
+    //   if (message.topic_id.id === this.topic.id) {
+    //     listMessagesDuSujet.push(message);
+    //   }
+    // })
     return this.messages;
+  }
+
+  getErrorMessage() {
+    if (this.message.hasError('required')) {
+      return 'Vous devez entrer un message';
+    }
+    return this.message.hasError('message') ? 'Vous devez écrire un message entre 50 et 3000 caractères' : 'Vous devez écrire un message entre 50 et 3000 caractères';
   }
 
   ngOnDestroy(): void {
     this.topicSubscription.unsubscribe();
     this.messageSubscription.unsubscribe();
-}
+  }
+
+  convertTimestampEnDate(date: number): string {
+    let newDate = new Date(date * 1000);
+    let year = newDate.getFullYear();
+    let month = newDate.getMonth();
+    let day = newDate.getDay();
+    return day + '/' + month + '/' + year;
+  }
 
 }
