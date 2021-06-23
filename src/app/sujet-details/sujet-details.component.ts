@@ -6,6 +6,7 @@ import { SujetsService } from '../services/sujetsService';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from '../services/messageService';
 import { Subscription } from 'rxjs';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-sujet-details',
@@ -17,11 +18,9 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   topics: Sujet[] = [];
   topic!: any;
   topicSubscription!: Subscription;
-  messages: Message[] = [];
-  messageSubscription!: Subscription;
   message= new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(3000)]);
 
-  constructor(private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
+  constructor(private userService: UsersService, private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
     this.creationMessage = this.formBuilder.group({
@@ -32,11 +31,6 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     });
     this.sujetService.emitTopics();
     this.sujetService.recupUnSujet(4);
-    this.messageSubscription = this.messageService.messageSubject.subscribe((messages: Message[]) => {
-      this.messages = messages;
-    });
-    this.messageService.emitTopics();
-    this.messageService.recupMessages();
   }
 
   titreSujet(): string {
@@ -54,20 +48,21 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log(this.creationMessage.value.message);
+    let contentMessage = this.creationMessage.value.message
     let currentDate = Math.floor(Date.now()/1000);
-    console.log(currentDate);
+    let currentUser = this.userService.recupUser()[0];
+    let currentSujet = this.topic;
+    let messageAEnregistrer = {content: contentMessage,
+                               date: currentDate,
+                               topic_id: currentSujet,
+                               author_id: currentUser};
+    console.log(messageAEnregistrer);
+    //this.messageService.createMessage(messageAEnregistrer);
   }
 
   getMessages() : Message[] {
-    // const listMessagesDuSujet: Message[] = [];
-    // this.messages.forEach(message => {
-    //   console.log("------- " + message.topic_id.id + " === " + this.topic.id);
-    //   if (message.topic_id.id === this.topic.id) {
-    //     listMessagesDuSujet.push(message);
-    //   }
-    // })
-    return this.messages;
+    //console.log(this.topic.messages[0].author.username);
+    return this.topic.messages;
   }
 
   getErrorMessage() {
@@ -79,7 +74,6 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.topicSubscription.unsubscribe();
-    this.messageSubscription.unsubscribe();
   }
 
   convertTimestampEnDate(date: number): string {
