@@ -8,7 +8,8 @@ import { MessageService } from './services/messageService';
 import { HttpClientModule } from '@angular/common/http';
 import { CreationFormComponent } from './creation-form/creation-form.component';
 import { UsersService } from './services/users.service';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   // { path: '', component: AppComponent },
@@ -30,7 +31,7 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule, 
     HttpClientModule, 
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes), BrowserAnimationsModule, MatButtonModule
   ],
   providers: [MessageService, UsersService],
 
