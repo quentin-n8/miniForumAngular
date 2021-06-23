@@ -25,7 +25,7 @@ export class MessageService {
     }
 
  
-    patchMessage(modifierMessage: Message){
+    postMessage(modifierMessage: Message){
         //POST request :
         this.httpClient.post<Message>(this.apiURL+"/api/message", { id: modifierMessage.id, content: modifierMessage.content, date: modifierMessage.date, topic_id: modifierMessage.topic_id, author_id: modifierMessage.author_id })
         .subscribe(responseFromApi => {

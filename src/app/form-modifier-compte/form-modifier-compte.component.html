@@ -1,27 +1,45 @@
 <body>
     <main>
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit()" >
-
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <div>
                 <input type="text" placeholder="Modifier l'username" name="nvUsername" formControlName="nvUsername">
-                <p *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid">Message d'erreur: {{ getUsernameErrors() }}</p>
+                <p *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid">ERREUR: {{ getUsernameErrors()
+                    }}</p>
             </div>
             <div>
-                <input type="password" placeholder="Mot de passe actuel" name="actuelPassword" formControlName="actuelPassword">
+                <input type="password" placeholder="Mot de passe actuel" name="actuelPassword"
+                    formControlName="actuelPassword">
+                    <p *ngIf="myForm.dirty && myForm.controls.actuelPassword.invalid">ERREUR: {{ getActuelPasswordErrors()
+                    }}</p>
             </div>
             <div>
-                <input type="password" placeholder="Nouveau le mot de passe" name="nvPassword" formControlName="nvPassword">
-                <p *ngIf="myForm.dirty && myForm.controls.nvPassword.invalid">Message d'erreur: {{ getnvPasswordErrors() }}</p>
-           
+                <input type="password" placeholder="Nouveau le mot de passe" name="nvPassword"
+                    formControlName="nvPassword">
+                <p *ngIf="myForm.dirty && myForm.controls.nvPassword.invalid">ERREUR: {{ getnvPasswordErrors()
+                    }}</p>
+
             </div>
             <div>
-                <input type="password" placeholder="Confirmer le nouveau mot de passe" name="confirPassword" formControlName="confirPassword">
-                <p *ngIf="myForm.dirty">{{getPasswordConfirmErrors()}}</p>
+                <input type="password" placeholder="Confirmer le nouveau mot de passe" name="confirPassword"
+                    formControlName="confirPassword">
+                <p *ngIf="myForm.dirty  && myForm.controls.confirPassword.invalid">ERREUR: {{getPasswordConfirmErrors()}}</p>
             </div>
             <div>
                 <button mat-button type="submit" [disabled]="myForm.invalid">Modifier le compte</button>
             </div>
 
-        </form>
-    </main>
+     
+
+    
+
+<!-- <br>
+<div class="username">
+    <mat-form-field appearance="outline">
+        <!-- <mat-label >Username</mat-label> -->
+        <!-- <input matInput placeholder="Username" formControlName="nvUsername">
+        <mat-error *ngIf="myForm.invalid">{{getUsernameErrors()}}</mat-error>
+    </mat-form-field>
+</div><br> -->
+</form>
+</main>
 </body>

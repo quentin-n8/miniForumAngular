@@ -15,20 +15,19 @@ header {
     height: 80px;
 }
 
-input {
+input{
     width: 100%;
-    margin-bottom: 20px;
-    border-color: #3D80CC ;
-    border-radius: 4px;
-    
-}
-
-input:focus{
-    border: 3px solid #0000CD;
+    height:30px;
+    margin-bottom: 13px;
 }
 
 button{
-    border-radius: 4px;
     width: 100%;
 }
 
+p{
+    font-size: small;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color: red;
+}
