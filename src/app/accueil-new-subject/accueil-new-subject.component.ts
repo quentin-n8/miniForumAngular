@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Sujet } from "../modeles/sujet";
+import { SujetsService } from "../services/sujetsService"
 import { SujetDetailsComponent } from '../sujet-details/sujet-details.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-accueil-new-subject',
@@ -10,22 +12,51 @@ import { SujetDetailsComponent } from '../sujet-details/sujet-details.component'
 })
 
 export class AccueilNewSubjectComponent implements OnInit {
+  topicSubscription!: Subscription;
+  listSujetsObjets: Sujet[] = [];
   newSubjectForm!: FormGroup;
-  listSujetDiv: any = document.getElementById("listSujets");
-  listSujetsObjets: Sujet[] = [];// = [new Sujet(0, "Coucou", "18/06/2021", "Thomas"),new Sujet(0, "Qui est la maman de Oui-Oui ????", "01/01/0000", "Jesus"),new Sujet(0, "Le groupe 2 est le meilleur !", "08/07/2021", "Soufiane")];
+  
 
-  constructor(private formBuilder: FormBuilder) { 
-    
+
+  constructor(private formBuilder: FormBuilder, private sujetService: SujetsService) { 
+    this.topicSubscription = this.sujetService.topicsSubject.subscribe((topics: Sujet[]) => {
+      this.listSujetsObjets = topics;
+    });
+    this.sujetService.emitTopics();
+    this.test();
+  }
+
+  test(): void {
+    this.sujetService.recupSujet();
+    console.log(this.listSujetsObjets);
   }
 
   ngOnInit(): void {
+
     this.newSubjectForm = this.formBuilder.group({
       newTitle: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       newMessage: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(3000)]]
     });
+    
+    
+    this.updateDisp();
 
-  
+    
+  }
 
+  onSubmitNewSubject(): void {
+    console.log(this.newSubjectForm.value);
+  }
+
+  onFilterInput(event: any) {
+    this.test();
+    this.updateDisp();
+    console.log(event.target.value);
+  }
+
+  updateDisp(): void {
+    const listSujetDiv = document.getElementById("listeSujets")!;
+    console.log(this.listSujetsObjets);
     const popup = document.createElement("div");
     popup.setAttribute("class", "popup invisible");
     popup.setAttribute("style", "left: 80px; top: 80px;");
@@ -35,6 +66,7 @@ export class AccueilNewSubjectComponent implements OnInit {
     // this.listSujetsObjets.forEach(element => {
     for (let element of this.listSujetsObjets) {
       const sujet = document.createElement("div");
+      console.log(sujet);
       sujet.setAttribute("class", "sujet");
   
       const sujetTitre = document.createElement("h3");
@@ -100,17 +132,9 @@ export class AccueilNewSubjectComponent implements OnInit {
       sujet.appendChild(modifTitre);
       sujet.appendChild(boutonModif);
       sujet.appendChild(boutonSupp);
-      this.listSujetDiv.appendChild(sujet);
+      listSujetDiv.appendChild(sujet);
   
-  };
-  }
-
-  onSubmitNewSubject(): void {
-    console.log(this.newSubjectForm.value);
-  }
-
-  onFilterInput(event: any) {
-    console.log(event.target.value);
+    };
   }
 
 }

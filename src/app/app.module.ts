@@ -47,11 +47,9 @@ const routes: Routes = [
     ReactiveFormsModule, 
     HttpClientModule, 
     RouterModule.forRoot(routes),
-
-
     MatSliderModule,
     MatCheckboxModule,
-    //MatFormFieldModule,
+    BrowserAnimationsModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,

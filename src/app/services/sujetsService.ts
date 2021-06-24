@@ -8,12 +8,15 @@ export class SujetsService {
     topics: Sujet[] = [];
     topic: any;
     topicSubject = new Subject<Sujet>();
+    topicsSubject = new Subject<Sujet[]>();
     apiUrl = 'http://localhost:8080/';
 
     constructor(private httpClient: HttpClient) {}
 
     emitTopics() {
         this.topicSubject.next(this.topic);
+        this.topicsSubject.next(this.topics);
+        console.log(this.topics);
     }
 
     recupSujet () {
