@@ -7,10 +7,9 @@ import { User } from "../modeles/User";
 export class UsersService {
   
   servicelist: User[]= [];
-  usersSubject = new Subject<User[]>();
+  usersSubject= new Subject<User[]>();
   user: any;
   userSubject = new Subject<User>();
-
   apiUrl= "http://localhost:8080/api"
   
   constructor(private httpClient: HttpClient) {  

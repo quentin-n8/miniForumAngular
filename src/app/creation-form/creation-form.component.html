@@ -43,14 +43,10 @@
                 </mat-form-field>
             </div><br>
 
-            <div><mat-checkbox id="save_localstorage" color="primary">Se souvenir de moi</mat-checkbox></div><br>
+            <div><mat-checkbox class="checkbox" color="primary" (click)="saveUser()">Se souvenir de moi</mat-checkbox></div><br>
             
             <div class="button">
                 <button type="submit" mat-raised-button color="primary" [disabled]="CreationForm.invalid">Créer un compte</button>
-            </div>
-
-            <div class="button">
-                <button type="button" mat-raised-button color="primary" (click)="Test()">Test</button>
             </div>
 
         </form> 

@@ -1,7 +1,15 @@
 .password .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
+    position:relative;
+	  margin:1%;
+	  height:10%;
+	  width:98%;
+	  text-align:center;
+}
   
 .username .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-  }
+  position:relative;
+  margin:1%;
+  height:10%;
+  width:98%;
+  text-align:center;
+}

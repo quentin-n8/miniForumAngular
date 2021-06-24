@@ -19,6 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import { SujetsService } from './services/sujetsService';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -56,6 +57,8 @@ const routes: Routes = [
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
     
   ],
   providers: [
