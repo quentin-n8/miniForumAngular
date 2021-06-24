@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http"
+import { HttpClient } from "@angular/common/http";
+import { Subject } from 'rxjs';
 import { User } from "../modeles/User";
 
 @Injectable()
 export class UsersService {
-
+  
+  servicelist: User[]= [];
+  userSubject= new Subject<User[]>();
   apiUrl= "http://localhost:8080/api"
-  constructor(private httpClient: HttpClient) {
-    
+  
+  constructor(private httpClient: HttpClient) {  
   }
 
-  recupUser(): User[] {
-    let userslist: User[]= [];
+  emitUsers() {
+    this.userSubject.next(this.servicelist);
+  }
+  
+  recupAllUsers() {
     this.httpClient.get<User[]>(this.apiUrl+"/user", {observe: "body"})
-    .subscribe(usersFromApi => { 
-      usersFromApi.forEach( user => {
-        userslist.push(user);
-      });
-    }, error => { 
-      console.log("Error :"+error);
+    .subscribe((usersFromApi: User[]) => { 
+      this.servicelist= usersFromApi;
+      this.emitUsers();
     });
-    return userslist;
+  
   }
 
   createUser(user: User){
