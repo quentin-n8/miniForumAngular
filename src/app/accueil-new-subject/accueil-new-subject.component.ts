@@ -4,7 +4,7 @@ import { Sujet } from "../modeles/sujet";
 import { User } from "../modeles/User";
 import { SujetsService } from "../services/sujetsService"
 import { UsersService } from '../services/users.service';
-import { SujetDetailsComponent } from '../sujet-details/sujet-details.component';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -22,7 +22,7 @@ export class AccueilNewSubjectComponent implements OnInit {
   
 
 
-  constructor(private formBuilder: FormBuilder, private sujetService: SujetsService, private userservice: UsersService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private sujetService: SujetsService, private userservice: UsersService) { 
     
   }
 
@@ -77,24 +77,22 @@ export class AccueilNewSubjectComponent implements OnInit {
     const listeSujetDiv = document.getElementById("listeSujets")!;
     listeSujetDiv.innerHTML = "";
     const popup = document.createElement("div");
-    //popup.setAttribute("class", "popup invisible");
     const popupContent = document.createElement("span");
     popup.appendChild(popupContent);
 
-    // this.listSujetsObjets.forEach(element => {
     for (let element of this.listeSujetsObjets) {
       const sujet = document.createElement("div");
-      //sujet.setAttribute("class", "sujet");
       sujet.setAttribute("style", "display: grid; grid-template-columns: 1fr 100px 100px; grid-column-gap: var(--marge); margin-top: var(--marge)");
   
       const sujetTitre = document.createElement("h3");
       sujetTitre.textContent = element.title;
-      //sujetTitre.setAttribute("class", "accueil");
       sujetTitre.setAttribute("style", "display: inline; font-size: 1.3em; color: var(--bleu-claire); margin: auto 0.2em;")
-  
+      
+      sujetTitre.addEventListener("click", event => {
+        this.router.navigate([`sujetDetails/${element.id}`]);
+      })
       sujetTitre.addEventListener("mouseover", event => {
-          popupContent.innerHTML = `Posté par ${element.author.username}<br>le ${this.convertTimestamp(element.date)}`;
-          //popup.setAttribute("class", "popup");
+        popupContent.innerHTML = `Posté par ${element.author.username}<br>le ${this.convertTimestamp(element.date)}`;
       });
   
       sujetTitre.addEventListener("mousemove", event => {

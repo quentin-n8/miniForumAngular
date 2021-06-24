@@ -28,8 +28,7 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilNewSubjectComponent},
   { path: 'modifierCompte', component: FormModifierCompteComponent },
   { path: 'creationCompte', component: CreationFormComponent},
-  { path: "sujetDetails", component: SujetDetailsComponent },
-  
+  { path: 'sujetDetails/:id', component: SujetDetailsComponent },
   // { path: '', component: AppComponent },
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
   { path: '**', redirectTo: 'accueil'},
