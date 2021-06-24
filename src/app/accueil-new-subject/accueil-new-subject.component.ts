@@ -26,6 +26,8 @@ export class AccueilNewSubjectComponent implements OnInit {
     
   }
 
+  
+
   ngOnInit(): void {
 
     this.newSubjectForm = this.formBuilder.group({
@@ -160,6 +162,10 @@ export class AccueilNewSubjectComponent implements OnInit {
       listeSujetDiv.appendChild(sujet);
   
     };
+  }
+
+  redirectToSujetDetails(topic_id_selected: number) : void {
+    this.router.navigate(['sujetDetails', topic_id_selected]);
   }
 
 }
