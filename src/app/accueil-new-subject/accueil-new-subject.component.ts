@@ -4,6 +4,7 @@ import { Sujet } from "../modeles/sujet";
 import { SujetsService } from "../services/sujetsService"
 import { SujetDetailsComponent } from '../sujet-details/sujet-details.component';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accueil-new-subject',
@@ -18,7 +19,7 @@ export class AccueilNewSubjectComponent implements OnInit {
   
 
 
-  constructor(private formBuilder: FormBuilder, private sujetService: SujetsService) { 
+  constructor(private router : Router, private formBuilder: FormBuilder, private sujetService: SujetsService) { 
     this.topicSubscription = this.sujetService.topicsSubject.subscribe((topics: Sujet[]) => {
       this.listSujetsObjets = topics;
     });
@@ -135,6 +136,10 @@ export class AccueilNewSubjectComponent implements OnInit {
       listSujetDiv.appendChild(sujet);
   
     };
+  }
+
+  redirectToSujetDetails(topic_id_selected: number) : void {
+    this.router.navigate(['sujetDetails', topic_id_selected]);
   }
 
 }
