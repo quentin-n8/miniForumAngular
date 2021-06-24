@@ -45,7 +45,7 @@ export class CreationFormComponent implements OnInit {
     if (this.save_localstorage === true) {
       localStorage.setItem('current_user', JSON.stringify(this.user));
     }
-
+    this._snackBar.open(message, action);
   }
 
   ngOnDestroy(): void {
