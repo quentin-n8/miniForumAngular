@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AbstractControl, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, ControlContainer } from '@angular/forms';
+import { Observable, of, Subscription, timer } from 'rxjs';
+import { map, debounceTime, take, switchMap } from "rxjs/operators";
+import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, ControlContainer } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 import { User } from "../modeles/User";
 
@@ -23,10 +24,11 @@ export class CreationFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.usersSubscription = this.userservice.userSubject.subscribe((subscription_list: User[]) => {
+    this.usersSubscription = this.userservice.usersSubject.subscribe((subscription_list: User[]) => {
       this.userslist = subscription_list;
     });
     this.userservice.emitUsers();
+    this.userservice.recupAllUsers();
 
     this.CreationForm= this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
@@ -92,11 +94,11 @@ export class CreationFormComponent implements OnInit {
     //   }
     // })
     // console.log(check_existing);
-    // console.log(this.userslist);
-    // console.log(this.userslist.length);
+    console.log(this.userslist);
+    console.log(this.userslist.length);
   }
   
-  existingUserValidator(): ValidatorFn {
+  existingUserValidator(): AsyncValidatorFn {
     this.userservice.recupAllUsers();
     let check_existing= false;
     this.userslist.forEach( user => {
@@ -104,7 +106,7 @@ export class CreationFormComponent implements OnInit {
         check_existing= true;
       }
     });
-    return (control: AbstractControl): {[key: string]: any} | null => {  
+    return (control: AbstractControl): Promise<{[key: string]: any} | null> | Observable<{ [key: string]: any } | null> => { 
       if (this.CreationForm && check_existing === true) {
             return {
                 existingUser: {

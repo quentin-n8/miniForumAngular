@@ -7,14 +7,14 @@ import { User } from "../modeles/User";
 export class UsersService {
   
   servicelist: User[]= [];
-  userSubject= new Subject<User[]>();
+  usersSubject= new Subject<User[]>();
   apiUrl= "http://localhost:8080/api"
   
   constructor(private httpClient: HttpClient) {  
   }
 
   emitUsers() {
-    this.userSubject.next(this.servicelist);
+    this.usersSubject.next(this.servicelist);
   }
   
   recupAllUsers() {
