@@ -9,7 +9,7 @@
             <div>
                 <input type="password" placeholder="Mot de passe actuel" name="actuelPassword"
                     formControlName="actuelPassword">
-                    <p *ngIf="myForm.dirty && myForm.controls.actuelPassword.invalid">ERREUR: {{ getActuelPasswordErrors()
+                <p *ngIf="myForm.dirty && myForm.controls.actuelPassword.invalid">ERREUR: {{ getActuelPasswordErrors()
                     }}</p>
             </div>
             <div>
@@ -22,24 +22,12 @@
             <div>
                 <input type="password" placeholder="Confirmer le nouveau mot de passe" name="confirPassword"
                     formControlName="confirPassword">
-                <p *ngIf="myForm.dirty  && myForm.controls.confirPassword.invalid">ERREUR: {{getPasswordConfirmErrors()}}</p>
+                <p *ngIf="myForm.dirty  && myForm.controls.confirPassword.invalid">ERREUR:
+                    {{getPasswordConfirmErrors()}}</p>
             </div>
             <div>
                 <button mat-button type="submit" [disabled]="myForm.invalid">Modifier le compte</button>
             </div>
-
-     
-
-    
-
-<!-- <br>
-<div class="username">
-    <mat-form-field appearance="outline">
-        <!-- <mat-label >Username</mat-label> -->
-        <!-- <input matInput placeholder="Username" formControlName="nvUsername">
-        <mat-error *ngIf="myForm.invalid">{{getUsernameErrors()}}</mat-error>
-    </mat-form-field>
-</div><br> -->
-</form>
-</main>
+        </form>
+    </main>
 </body>
