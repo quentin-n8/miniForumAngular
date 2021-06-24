@@ -4,7 +4,10 @@ import { Message} from "../modeles/message";
 import { Subject } from "rxjs";
 
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
+
 export class MessageService {
 
     messages: Message[] = [];

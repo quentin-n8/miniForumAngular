@@ -43,12 +43,6 @@ export class UsersService {
     });
   }
 
-
-
-
-
-
-
   createUser(user: User){
     this.httpClient.post<User>(this.apiUrl+"/user", {username: user.username, password: user.password})
     .subscribe(responseFromApi => { 
@@ -58,7 +52,14 @@ export class UsersService {
     });
 
   }
-   
+
+  modifierUnUser(id: number, userModif: User) {
+    this.httpClient.patch<User>(`${this.apiUrl}/user/${id}`, userModif)
+      .subscribe(responseFromApi => {
+        console.log(responseFromApi);
+      }, error => { 
+        console.log("Error :" + error);
+      });
+  }
+
 }
-
-
