@@ -20,3 +20,44 @@ div {
     margin-top: var(--marge);
     width: 100%;
 }
+
+.invisible {
+    display: none;
+}
+
+div.popup {
+    background-color: darkslateblue;
+    color: #ffffff;
+    padding: 0px 1em;
+    border-radius: 0.3em;
+    position: absolute;
+}
+
+.sujet {
+    display: grid;
+	grid-template-columns: 1fr 100px 100px;
+    grid-column-gap: var(--marge);
+    margin-bottom: var(--marge);
+}
+
+h3.accueil {
+    display: inline;
+    color: var(--bleu-claire);
+    margin: auto 0.2em;
+}
+
+button.bouton_enregistre {
+    padding: 0.5em;
+    color: #ffffff;
+    background-color:mediumseagreen;
+    border: 3px solid forestgreen;
+    width: 100%;
+}
+
+button.bouton_supp {
+    padding: 0.5em;
+    color: #ffffff;
+    background-color: indianred;
+    border: 3px solid red;
+    width: 100%;
+}
