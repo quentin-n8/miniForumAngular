@@ -17,6 +17,7 @@ export class FormModifierCompteComponent implements OnInit {
 
   myForm!: FormGroup;
   user!: User;
+  listeUsers: User[]=[];
 
 
   constructor(private userService: UsersService, private formBuilder: FormBuilder) {
@@ -35,10 +36,27 @@ export class FormModifierCompteComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     console.log(this.myForm.value);
-    this.user = this.myForm.value;
-    this.userService.recupUser();
+    console.log(this.user);
+  
+     let user={
+       username:this.myForm.value.nvUsername,
+       password:this.myForm.value.nvPassword,
+       passwordConfirm: this.myForm.value.confirPassword,
+       oldPassword: this.myForm.value.actuelPassword
+      };
+    // console.log(this.myForm.value.nvUsername);
 
+    // this.user.username=this.myForm.value.nvUsername;
+    // console.log(this.user.username);
+    
+    // this.user.password = this.myForm.value.nvPassword;
+    // console.log(this.user.password);
+    
+    // console.log(this.user);
+    this.userService.modifierUnUser(3, user)
+    
   }
 
   getUsernameErrors(): string | void {

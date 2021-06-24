@@ -2,7 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Message} from "../modeles/message";
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
+
 export class MessageService {
 
     messages: Message[] = [];

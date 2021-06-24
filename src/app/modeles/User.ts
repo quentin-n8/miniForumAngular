@@ -4,6 +4,8 @@ export interface User {
     id?: number;
     username: string;
     password?: string;
-    admin: number;
+    admin?: number;
+    oldPassword?: string;
+    passwordConfirm?: string;
     
 }
