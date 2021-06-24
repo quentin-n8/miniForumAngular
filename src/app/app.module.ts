@@ -20,6 +20,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { SujetsService } from './services/sujetsService';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConnexionComponent } from './connexion/connexion.component';
 
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'modifierCompte', component: FormModifierCompteComponent },
   { path: 'creationCompte', component: CreationFormComponent},
   { path: "sujetDetails/:id", component: SujetDetailsComponent },
+  { path: "connexion", component: ConnexionComponent },
   
   // { path: '', component: AppComponent },
   // { path: 'not-found', component: NotFoundComponent},    ###TODO create not-found page
@@ -43,7 +45,8 @@ const routes: Routes = [
     AccueilNewSubjectComponent,
     SujetDetailsComponent,
     CreationFormComponent,
-    FormModifierCompteComponent
+    FormModifierCompteComponent,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,
