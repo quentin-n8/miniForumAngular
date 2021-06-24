@@ -1,16 +1,21 @@
 <h1>  {{ titreSujet()  }}  </h1>
 <h2>  {{ sousTitreSujet() }}  </h2>
 
+<div class="flex-end">
+    <button id="refresh" type="submit" (click)="refreshMessages()">Actualiser les messages</button>
+</div>
+
 <p *ngFor="let message of getMessages()">
-    
+
     <!-- Par {{ message.author_id }} -->
     Le {{ convertTimestampEnDate(message.date) }}. <br>
     {{ message.content }}.
+
 </p>
 
 <form [formGroup]="creationMessage" (ngsubmit)="onSubmit()">
 
-    <input type="text" name="message" formControlName="message">
+    <textarea type="text" name="message" formControlName="message"></textarea>
     <button type="submit" [disabled]="creationMessage.invalid" (click)="onSubmit()">Répondre au sujet</button>
     <mat-error *ngIf="creationMessage.invalid">{{getErrorMessage()}}</mat-error>
 

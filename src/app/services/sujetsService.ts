@@ -16,7 +16,6 @@ export class SujetsService {
     emitTopics() {
         this.topicSubject.next(this.topic);
         this.topicsSubject.next(this.topics);
-        console.log(this.topics);
     }
 
     recupSujet () {

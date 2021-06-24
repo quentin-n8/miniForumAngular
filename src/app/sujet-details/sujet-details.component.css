@@ -1,0 +1,86 @@
+body {
+    --bleu-claire: #79A3D4;
+    --bleu: #3D80CC;
+    --bleu-foncé: #0000CD;
+    --transparence: #00000000;
+    --marge: 1em;
+
+    margin: 30px 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 80px;
+}
+
+textarea{
+    width: 100%;
+    height:80px;
+    margin-bottom: 13px;
+}
+
+button{
+    width: 100%;
+    font-size: 16px;
+    padding: 0.5%;
+    color: white;
+    font-weight: bold;
+    background-color: #79A3D4;
+    border-color: #3D80CC; 
+    border-width: 2px;
+    margin-bottom: 1%;
+}
+
+#refresh{
+    width: 10%;
+    font-size: 16px;
+    padding: 0.5%;
+    color: white;
+    font-weight: bold;
+    background-color: #79A3D4;
+    border-color: #3D80CC; 
+    border-width: 2px;
+    margin-bottom: 1%;
+
+    display: inline-flex;
+    justify-content: right;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+mat-error{
+    font-size: small;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color: red;
+}
+
+p{
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color: #3D80CC;
+    background-color: #EDEDED;
+    padding: 1%; 
+    border: 2px solid #3D80CC;
+}
+
+h1{
+    margin-top: 1%;
+    padding: 0.5%;
+    font-size: 40px;
+    color: #3D80CC;
+}
+
+h2{
+    color: #3D80CC;
+}
+
+form{
+    margin-top: 5%;
+}

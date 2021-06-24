@@ -65,6 +65,7 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     console.log(messageAEnregistrer);
     this.messageService.createMessage(messageAEnregistrer);
     this.creationMessage.reset();
+    //window.location.reload();
   }
 
   getMessages() : Message[] {
@@ -80,6 +81,7 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.topicSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   convertTimestampEnDate(date: number): string {
@@ -88,6 +90,10 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     let month = newDate.getMonth();
     let day = newDate.getDay();
     return day + '/' + month + '/' + year;
+  }
+
+  refreshMessages() {
+    window.location.reload();
   }
 
 }
