@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { map, debounceTime, take, switchMap } from "rxjs/operators";
-import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, ControlContainer } from '@angular/forms';
+import { map, debounceTime, take, switchMap, delay } from "rxjs/operators";
+import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, Validator, ControlContainer } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 import { User } from "../modeles/User";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-creation-form',
@@ -17,7 +18,7 @@ export class CreationFormComponent implements OnInit {
   usersSubscription!: Subscription;
   userslist: User[]= [];
   hide = true;
-  check_existing= false;
+  save_localstorage= false;
   
   constructor(private userservice: UsersService, private formBuilder: FormBuilder) {
   }
@@ -31,16 +32,19 @@ export class CreationFormComponent implements OnInit {
     this.userservice.recupAllUsers();
 
     this.CreationForm= this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('.*[0-9]+.*'), Validators.pattern('.*[A-Z]+.*'), Validators.pattern('.*[^A-Za-z0-9]+.*')]],
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
-      save_localstorage: false,
     });
+
   }
 
   onSubmit(): void {
     this.user= this.CreationForm.value;
     this.userservice.createUser(this.user);
+    if (this.save_localstorage === true) {
+      localStorage.setItem('current_user', JSON.stringify(this.user));
+    }
 
   }
 
@@ -85,39 +89,24 @@ export class CreationFormComponent implements OnInit {
     return this.CreationForm.controls.password_confirm.hasError('password_confirm') ? 'Confirmation invalide' : '';
   }
 
-  Test(){
-    // this.userservice.recupAllUsers();
-    // let check_existing= false;
-    // this.userslist.forEach( user => {
-    //   if(user.username === this.CreationForm.controls.username.value) {
-    //     check_existing= true;
-    //   }
-    // })
-    // console.log(check_existing);
-    console.log(this.userslist);
-    console.log(this.userslist.length);
+  getByUsername(username: string): User | undefined {
+    const user = this.userslist.find(user => user.username === username);
+    return user;
   }
   
-  // existingUserValidator(): AsyncValidatorFn {
-  //   this.userservice.recupAllUsers();
-  //   let check_existing= false;
-  //   this.userslist.forEach( user => {
-  //     if(user.username === this.CreationForm.controls.username.value) {
-  //       check_existing= true;
-  //     }
-  //   });
-  //   return (control: AbstractControl): Promise<{[key: string]: any} | null> | Observable<{ [key: string]: any } | null> => { 
-  //     if (this.CreationForm && check_existing === true) {
-  //           return {
-  //               existingUser: {
-  //                   value: ''
-  //               }
-  //           };
-  //       } else {
-  //           return null;
-  //       }
-  //   };
-  // }
+  existingUserValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+        if (this.CreationForm && this.getByUsername(this.CreationForm.controls.username.value) !== undefined) {
+            return {
+                existingUser: {
+                    value: ''
+                }
+            };
+        } else {
+            return null;
+        }
+    };
+  }
   
   passwordConfirmValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
@@ -131,6 +120,15 @@ export class CreationFormComponent implements OnInit {
             return null;
         }
     };
+  }
+
+  saveUser() {
+    if(this.save_localstorage === false) {
+      this.save_localstorage= true;
+    }
+    else if (this.save_localstorage === true) {
+      this.save_localstorage= false;
+    }
   }
 
 }
