@@ -9,15 +9,16 @@
 <body>
     
     <header>
-        <button class="headerB hSelected">Accueil</button>
-        <button class="headerB hUnselected" routerLink="modifierCompte"*ngIf="!isConnected">Modifier mon compte</button>
-        <button class="headerB hUnselected" *ngIf="!isConnected" (click)="seConnecter()">Se connecter</button>
-        <button class="headerB hUnselected" routerLink ="createUserForm"*ngIf="isConnected">Créer un compte</button>
-        <button class="headerB hUnselected" *ngIf="isConnected" (click)="seDeconnecter()">Se Deconnecter</button>
+        <button class="headerB hUnselected" [class.hSelected]="menuPosition === 0" (click)="redirectToAccueil()">Accueil</button>
+        <button class="headerB hUnselected" [class.hSelected]="menuPosition === 1" *ngIf="!isConnected" (click)="redirectToModifierCompte()">Modifier mon compte</button>
+        <button class="headerB hUnselected" [class.hSelected]="menuPosition === 2" *ngIf="!isConnected" (click)="redirectToseConnecter()">Se déconnecter</button>
+        <button class="headerB hUnselected" [class.hSelected]="menuPosition === 3" *ngIf="isConnected" (click)="redirectToCreationCompte()">Créer un compte</button>
+        <button class="headerB hUnselected" [class.hSelected]="menuPosition === 4" *ngIf="isConnected" (click)="redirectToseDeconnecter()">Se connecter</button>
     </header>
     
     
     <main>
         <router-outlet></router-outlet>
     </main>
+
 </body>

@@ -31,7 +31,7 @@ export class CreationFormComponent implements OnInit {
     this.userservice.recupAllUsers();
 
     this.CreationForm= this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('.*[0-9]+.*'), Validators.pattern('.*[A-Z]+.*'), Validators.pattern('.*[^A-Za-z0-9]+.*')]],
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
       save_localstorage: false,
@@ -98,26 +98,26 @@ export class CreationFormComponent implements OnInit {
     console.log(this.userslist.length);
   }
   
-  existingUserValidator(): AsyncValidatorFn {
-    this.userservice.recupAllUsers();
-    let check_existing= false;
-    this.userslist.forEach( user => {
-      if(user.username === this.CreationForm.controls.username.value) {
-        check_existing= true;
-      }
-    });
-    return (control: AbstractControl): Promise<{[key: string]: any} | null> | Observable<{ [key: string]: any } | null> => { 
-      if (this.CreationForm && check_existing === true) {
-            return {
-                existingUser: {
-                    value: ''
-                }
-            };
-        } else {
-            return null;
-        }
-    };
-  }
+  // existingUserValidator(): AsyncValidatorFn {
+  //   this.userservice.recupAllUsers();
+  //   let check_existing= false;
+  //   this.userslist.forEach( user => {
+  //     if(user.username === this.CreationForm.controls.username.value) {
+  //       check_existing= true;
+  //     }
+  //   });
+  //   return (control: AbstractControl): Promise<{[key: string]: any} | null> | Observable<{ [key: string]: any } | null> => { 
+  //     if (this.CreationForm && check_existing === true) {
+  //           return {
+  //               existingUser: {
+  //                   value: ''
+  //               }
+  //           };
+  //       } else {
+  //           return null;
+  //       }
+  //   };
+  // }
   
   passwordConfirmValidator(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {

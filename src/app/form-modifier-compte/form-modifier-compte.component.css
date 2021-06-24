@@ -1,0 +1,33 @@
+body {
+    --bleu-claire: #79A3D4;
+    --bleu: #3D80CC;
+    --bleu-foncé: #0000CD;
+    --transparence: #00000000;
+    --marge: 1em;
+
+    margin: 30px 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 80px;
+}
+
+input{
+    width: 100%;
+    height:30px;
+    margin-bottom: 13px;
+}
+
+button{
+    width: 100%;
+}
+
+p{
+    font-size: small;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color: red;
+}
