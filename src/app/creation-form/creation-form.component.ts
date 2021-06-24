@@ -23,7 +23,7 @@ export class CreationFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.usersSubscription = this.userservice.userSubject.subscribe((subscription_list: User[]) => {
+    this.usersSubscription = this.userservice.usersSubject.subscribe((subscription_list: User[]) => {
       this.userslist = subscription_list;
     });
     this.userservice.emitUsers();

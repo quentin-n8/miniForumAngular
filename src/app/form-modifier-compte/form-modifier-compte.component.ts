@@ -37,7 +37,7 @@ export class FormModifierCompteComponent implements OnInit {
   onSubmit(): void {
     console.log(this.myForm.value);
     this.user = this.myForm.value;
-    this.userService.recupUser();
+    this.userService.recupAllUsers();
 
   }
 

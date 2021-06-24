@@ -1,32 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CreationForm</title>
-</head>
-<body>
+<h1>  {{ titreSujet()  }}  </h1>
+<h2>  {{ sousTitreSujet() }}  </h2>
 
-    <main>
-
-        <h1>  {{ titreSujet() }}  </h1>
-
-        <p *ngFor="let message of getMessages()">
-            
-            <!-- Par {{ message.author_id.username }} -->
-            Le {{ message.date }}. <br>
-            {{ message.content }}.
-        </p>
-
-        <form [formGroup]="creationMessage" (ngsubmit)="onSubmit()">
-
-            <input type="text" name="message" formControlName="message">
-            <button type="submit" [disabled]="creationMessage.invalid">Répondre au sujet</button>
-
-        </form> 
-
-    </main>
+<p *ngFor="let message of getMessages()">
     
-</body>
-</html>
+    <!-- Par {{ message.author_id }} -->
+    Le {{ convertTimestampEnDate(message.date) }}. <br>
+    {{ message.content }}.
+</p>
+
+<form [formGroup]="creationMessage" (ngsubmit)="onSubmit()">
+
+    <input type="text" name="message" formControlName="message">
+    <button type="submit" [disabled]="creationMessage.invalid" (click)="onSubmit()">Répondre au sujet</button>
+    <mat-error *ngIf="creationMessage.invalid">{{getErrorMessage()}}</mat-error>
+
+</form> 
+
+    

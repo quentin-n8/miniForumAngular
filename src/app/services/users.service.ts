@@ -7,14 +7,21 @@ import { User } from "../modeles/User";
 export class UsersService {
   
   servicelist: User[]= [];
-  userSubject= new Subject<User[]>();
+  usersSubject = new Subject<User[]>();
+  user: any;
+  userSubject = new Subject<User>();
+
   apiUrl= "http://localhost:8080/api"
   
   constructor(private httpClient: HttpClient) {  
   }
 
   emitUsers() {
-    this.userSubject.next(this.servicelist);
+    this.usersSubject.next(this.servicelist);
+  }
+
+  emitTopics(): void {
+    this.userSubject.next(this.user);
   }
   
   recupAllUsers() {
@@ -25,6 +32,22 @@ export class UsersService {
     });
   
   }
+
+  recupUnUser(id: number) {
+    this.httpClient.get<User>(this.apiUrl+`/user/${id}`, {observe: "body"})
+    .subscribe(usersFromApi => { 
+      this.user= usersFromApi;
+      this.emitTopics();
+    }, error => { 
+      console.log("Error :"+error);
+    });
+  }
+
+
+
+
+
+
 
   createUser(user: User){
     this.httpClient.post<User>(this.apiUrl+"/user", {username: user.username, password: user.password})
