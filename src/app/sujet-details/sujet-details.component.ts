@@ -38,7 +38,7 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     this.userSubscription = this.userService.userSubject.subscribe((user: User) => {
       this.user = user;
     });
-    this.userService.emitTopics();
+    this.userService.emitUser();
     this.userService.recupUnUser(3);
   }
 

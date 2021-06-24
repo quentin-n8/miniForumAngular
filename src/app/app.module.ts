@@ -21,7 +21,7 @@ import { SujetsService } from './services/sujetsService';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConnexionComponent } from './connexion/connexion.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
 
 
 
@@ -62,7 +62,7 @@ const routes: Routes = [
     MatTabsModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    
+    MatSlideToggleModule,
   ],
   providers: [
     MessageService,

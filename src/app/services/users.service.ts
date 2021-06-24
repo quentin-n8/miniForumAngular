@@ -19,7 +19,7 @@ export class UsersService {
     this.usersSubject.next(this.servicelist);
   }
 
-  emitTopics(): void {
+  emitUser(): void {
     this.userSubject.next(this.user);
   }
   
@@ -36,7 +36,7 @@ export class UsersService {
     this.httpClient.get<User>(this.apiUrl+`api/user/${id}`, {observe: "body"})
     .subscribe(usersFromApi => { 
       this.user= usersFromApi;
-      this.emitTopics();
+      this.emitUser();
     }, error => { 
       console.log("Error :"+error);
     });
@@ -61,22 +61,10 @@ export class UsersService {
       });
   }
 
-  login2(user: User) {
-    this.httpClient.patch<User>(`${this.apiUrl}login`, user)
-      .subscribe(responseFromApi => {
-        console.log(responseFromApi);
-      }, error => { 
-        console.log("Error :" + error);
-      });
-  }
-
-  login(credentials: any, rememberMe: boolean): void {
+  login(credentials: any): void {
     this.httpClient.post(`${this.apiUrl}login`, credentials).subscribe(user => {
       this.user = user;
-      if (rememberMe) {
-        localStorage.setItem('user', JSON.stringify(this.user));
-      }
-      this.emitTopics();
+      this.emitUser();
     }, error => {
       console.log(error);
     });
