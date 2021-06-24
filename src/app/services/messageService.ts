@@ -27,13 +27,16 @@ export class MessageService {
         });
     }
 
-
-    createMessage(message: Message){
-        this.httpClient.post<Message>(this.apiURL+"api/message", {content: message.content, date: message.date, topic_id: message.topic_id, author_id: message.author_id})
-        .subscribe(responseFromApi => { 
-          console.log(responseFromApi);
-        }, error => { 
-          console.log("Error :"+error);
+ 
+    postMessage(modifierMessage: Message){
+        //POST request :
+        this.httpClient.post<Message>(this.apiURL+"/api/message", { id: modifierMessage.id, content: modifierMessage.content, date: modifierMessage.date, topic_id: modifierMessage.topic_id, author_id: modifierMessage.author_id })
+        .subscribe(responseFromApi => {
+            console.log(responseFromApi);
+            
+        }, error => {
+            console.log("Erreur : " + error);      
+            
         });
     
       }

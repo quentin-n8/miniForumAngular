@@ -18,14 +18,18 @@ export class FormModifierCompteComponent implements OnInit {
   myForm!: FormGroup;
   user!: User;
 
-  constructor(private userService: UsersService, private formBuilder: FormBuilder) { }
+
+  constructor(private userService: UsersService, private formBuilder: FormBuilder) {
+  
+}
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
       nvUsername: ['', [Validators.minLength(3), Validators.maxLength(50)]],
       nvPassword: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
       confirPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/), this.passwordConfirmValidator()]],
-      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]]
+      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+   
     })
 
   }
@@ -47,6 +51,11 @@ export class FormModifierCompteComponent implements OnInit {
     }
   }
 
+  getActuelPasswordErrors(): string|void{
+    if (this.myForm.controls.actuelPassword.hasError('pattern')) {
+      return "Le mot de passe doit contenir au moins: un chiffre, une majuscule et un caractère spécial"
+    }
+  }
   getnvPasswordErrors(): string | void {
     if (this.myForm.controls.nvPassword.hasError('maxlength')) {
       return "Vous avez dépassé le nombre de caractères maximum (50) !";
