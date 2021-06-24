@@ -17,6 +17,8 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   creationMessage!: FormGroup;
   topic!: any;
   topicSubscription!: Subscription;
+  user!: any;
+  userSubscription!: Subscription;
   message= new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(3000)]);
 
   constructor(private userService: UsersService, private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
@@ -30,6 +32,11 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     });
     this.sujetService.emitTopics();
     this.sujetService.recupUnSujet(4);
+    this.userSubscription = this.userService.userSubject.subscribe((user: User) => {
+      this.user = user;
+    });
+    this.userService.emitTopics();
+    this.userService.recupUnUser(3);
   }
 
   titreSujet(): string {
@@ -49,18 +56,18 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     let contentMessage = this.creationMessage.value.message
     let currentDate = Math.floor(Date.now()/1000);
-    let currentUser = this.userService.recupUser()[0];
+    let currentUser = this.user;
     let currentSujet = this.topic;
     let messageAEnregistrer = {content: contentMessage,
                                date: currentDate,
-                               topic_id: currentSujet,
-                               author_id: currentUser};
+                               topic: currentSujet,
+                               user: currentUser};
     console.log(messageAEnregistrer);
-    //this.messageService.createMessage(messageAEnregistrer);
+    this.messageService.createMessage(messageAEnregistrer);
+    this.creationMessage.reset();
   }
 
   getMessages() : Message[] {
-    //console.log(this.topic.messages[0].author.username);
     return this.topic.messages;
   }
 

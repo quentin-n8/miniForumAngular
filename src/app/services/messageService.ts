@@ -29,7 +29,7 @@ export class MessageService {
 
 
     createMessage(message: Message){
-        this.httpClient.post<Message>(this.apiURL+"api/message", {content: message.content, date: message.date, topic_id: message.topic_id, author_id: message.author_id})
+        this.httpClient.post<Message>(this.apiURL+"/api/message", message)     // {content: message.content, date: message.date, topic_id: message.topic_id, author_id: message.author_id}
         .subscribe(responseFromApi => { 
           console.log(responseFromApi);
         }, error => { 
