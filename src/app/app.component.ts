@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from './modeles/User';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   isConnected = false;
+  connectedUser!: User;
   public menuPosition = 0;
   
 
@@ -16,6 +18,20 @@ export class AppComponent {
     private route: ActivatedRoute
   ) {
     this.menuPosition = 0;
+  }
+
+  ngOnInit(): void {
+    if (this.checkIfConnected()) {
+      this.isConnected = true;
+      this.connectedUser = JSON.parse(localStorage.getItem("current_user")!);
+      console.log(this.connectedUser.username);
+    } else {
+      this.isConnected = false;
+      this.connectedUser = JSON.parse("");
+    }
+    setTimeout(() => {
+      this.affichageUser();
+    }, 1);
   }
 
   redirectToAccueil() {
@@ -30,8 +46,6 @@ export class AppComponent {
 
   redirectToseConnecter(): void {
     this.menuPosition = 2;
-    this.isConnected = true;
-    console.log(this.isConnected);
     this.router.navigate(['connexion']);
   }
 
@@ -41,12 +55,28 @@ export class AppComponent {
   }
 
   redirectToseDeconnecter(): void {
-    this.menuPosition = 4;
+    this.menuPosition = 0;
     this.isConnected = false;
-    console.log(this.isConnected);
+    localStorage.removeItem("current_user");
+    this.router.navigate(['connexion']);
   }
 
-  
+  checkIfConnected() {
+    if (localStorage.getItem("current_user") === null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  affichageUser() {
+    const userDisp = document.getElementById("userDisp")!;
+    if (this.checkIfConnected()) {
+      userDisp.textContent = this.connectedUser.username;
+    } else {
+      userDisp.textContent = "";
+    }
+  }
 
 
 }

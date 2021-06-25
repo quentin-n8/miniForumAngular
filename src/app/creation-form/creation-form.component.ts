@@ -32,8 +32,8 @@ export class CreationFormComponent implements OnInit {
     this.userservice.recupAllUsers();
 
     this.CreationForm= this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), this.existingUserValidator()]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/)]],
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
     });
 

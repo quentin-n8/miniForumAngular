@@ -1,32 +1,59 @@
 <body>
     <main>
-        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-            <div>
-                <input type="text" placeholder="Modifier l'username" name="nvUsername" formControlName="nvUsername">
-                <p *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid">ERREUR: {{ getUsernameErrors()
-                    }}</p>
-            </div>
-            <div>
-                <input type="password" placeholder="Mot de passe actuel" name="actuelPassword"
-                    formControlName="actuelPassword">
-                <p *ngIf="myForm.dirty && myForm.controls.actuelPassword.invalid">ERREUR: {{ getActuelPasswordErrors()
-                    }}</p>
-            </div>
-            <div>
-                <input type="password" placeholder="Nouveau le mot de passe" name="nvPassword"
-                    formControlName="nvPassword">
-                <p *ngIf="myForm.dirty && myForm.controls.nvPassword.invalid">ERREUR: {{ getnvPasswordErrors()
-                    }}</p>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form">
+
+            <div class="modifierUsername">
+                <mat-form-field appearance="fill">
+                    <mat-label>Modifier l'username</mat-label>
+                    <input matInput placeholder="" formControlName="nvUsername">
+                    <mat-error *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid"> {{ getUsernameErrors()}}
+                    </mat-error>
+                </mat-form-field>
 
             </div>
-            <div>
-                <input type="password" placeholder="Confirmer le nouveau mot de passe" name="confirPassword"
-                    formControlName="confirPassword">
-                <p *ngIf="myForm.dirty  && myForm.controls.confirPassword.invalid">ERREUR:
-                    {{getPasswordConfirmErrors()}}</p>
+
+            <div class="mdpActuel">
+                <mat-form-field appearance="fill">
+                    <mat-label>Mot de passe actuel</mat-label>
+                    <input matInput [type]="hideMdpActuel ? 'password' : 'text'" formControlName="actuelPassword">
+                    <mat-error *ngIf="myForm.dirty && myForm.controls.actuelPassword.invalid">{{
+                        getActuelPasswordErrors()}}</mat-error>
+                    <button type = "button" mat-icon-button matSuffix (click)="hideMdpActuel = !hideMdpActuel" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hideMdpActuel">
+                        <mat-icon>{{hideMdpActuel ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
             </div>
+
+            <div class="nvPassword">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nouveau mot de passe</mat-label>
+                    <input matInput [type]="hideNvMDP ? 'password' : 'text'" formControlName="nvPassword">
+                    <mat-error *ngIf="myForm.dirty && myForm.controls.nvPassword.invalid">{{
+                        getnvPasswordErrors()}}</mat-error>
+                    <button type = "button" mat-icon-button matSuffix (click)="hideNvMDP = !hideNvMDP" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hideNvMDP">
+                        <mat-icon>{{hideNvMDP ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
+            <div class="confirPassword">
+                <mat-form-field appearance="fill">
+                    <mat-label>Confirmer le nouveau mot de passe</mat-label>
+                    <input matInput [type]="hideConfirPassword ? 'password' : 'text'" formControlName="confirPassword">
+                    <mat-error *ngIf="myForm.dirty  && myForm.controls.confirPassword.invalid">
+                        {{getPasswordConfirmErrors()}}</mat-error>
+                    <button type = "button" mat-icon-button matSuffix (click)="hideConfirPassword = !hideConfirPassword" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hideConfirPassword">
+                        <mat-icon>{{hideConfirPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+
             <div>
-                <button mat-button type="submit" [disabled]="myForm.invalid">Modifier le compte</button>
+                <button class="button" mat-raised-button color="primary" type="submit"
+                    [disabled]="myForm.invalid">Modifier le compte</button>
             </div>
         </form>
     </main>
