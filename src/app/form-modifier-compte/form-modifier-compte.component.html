@@ -2,10 +2,10 @@
     <main>
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form">
 
-            <div class="modifierUsername">
+            <div class="Username">
                 <mat-form-field appearance="fill">
-                    <mat-label>Modifier l'username</mat-label>
-                    <input matInput placeholder="" formControlName="nvUsername">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="FFF" formControlName="nvUsername">
                     <mat-error *ngIf="myForm.dirty && myForm.controls.nvUsername.invalid"> {{ getUsernameErrors()}}
                     </mat-error>
                 </mat-form-field>
@@ -53,7 +53,7 @@
 
             <div>
                 <button class="button" mat-raised-button color="primary" type="submit"
-                    [disabled]="myForm.invalid">Modifier le compte</button>
+                    [disabled]="myForm.invalid">Modifier mon compte</button>
             </div>
         </form>
     </main>
