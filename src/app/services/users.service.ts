@@ -60,9 +60,6 @@ export class UsersService {
 
   modifierUnUser(userModif: User) {
     let userCurrent = JSON.parse(localStorage.getItem('current_user') || "")
-    console.log(userCurrent);
-    console.log(userCurrent.username);
-    console.log(userCurrent.password);
 
     this.userBDD = this.servicelist.find(user => user.username === userCurrent.username)
     console.log(this.userBDD);
