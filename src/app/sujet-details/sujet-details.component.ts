@@ -31,8 +31,11 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     this.creationMessage = this.formBuilder.group({
       message: ['', [Validators.required, , Validators.maxLength(3000), Validators.minLength(0)]] 
     });
-    this.topicSubscription = this.sujetService.topicSubject.subscribe((topic: Sujet) => {
-      this.topic = topic;
+    this.topicSubscription = this.sujetService.topicSubject.subscribe((topic: any) => {
+      this.topic = topic.map( (topic: any) => {
+        topic.date= new Date(topic.date*1000);
+        return topic;
+      });
     });
     this.sujetService.emitTopics();
     this.sujetService.recupUnSujet(topicId); // this.sujetService.recupUnSujet(4); 
@@ -40,7 +43,7 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
       this.user = user;
     });
     this.userService.emitUser();
-    this.userService.recupUnUser(1);
+    this.userService.recupUnUser(87);
     
     AppComponent.setMenuPosition(0);
   }

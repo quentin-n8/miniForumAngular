@@ -1,5 +1,5 @@
-<h1>  {{ titreSujet()  }}  </h1>
-<h2>  {{ sousTitreSujet() }}  </h2>
+<h1 *ngIf="topic">  {{ topic.title }}  </h1>
+<h2>  {{ topic.date | date: "dd/MM/yyyy" }}  </h2>
 
 <div class="flex-end">
     <button id="refresh" type="submit" (click)="refreshMessages()">Actualiser les messages</button>

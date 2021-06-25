@@ -59,6 +59,7 @@ export class AppComponent implements OnInit{
     this.menuPosition = 0;
     this.isConnected = false;
     localStorage.removeItem("current_user");
+    localStorage.removeItem("seSouvenirDeMoi");
     this.router.navigate(['connexion']);
   }
 
