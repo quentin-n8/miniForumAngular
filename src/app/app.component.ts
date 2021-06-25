@@ -1,67 +1,64 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './modeles/User';
-import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-subject.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, AfterViewInit{
+export class AppComponent implements OnInit{
   isConnected = false;
   connectedUser!: User;
-  static menuPosition = 0;
+  public menuPosition = 0;
+  static menuPosition: any;
   
 
   constructor(
     private router : Router,
     private route: ActivatedRoute
   ) {
-    AppComponent.menuPosition = 0;
-  }
-
-  ngAfterViewInit(): void {
-    this.affichageUser();
+    this.menuPosition = 0;
   }
 
   ngOnInit(): void {
     if (this.checkIfConnected()) {
-      console.log(this.checkIfConnected());
       this.isConnected = true;
+      this.connectedUser = JSON.parse(localStorage.getItem("current_user")!);
+      console.log(this.connectedUser.username);
     } else {
       this.isConnected = false;
+      this.connectedUser = JSON.parse("");
     }
+    setTimeout(() => {
+      this.affichageUser();
+    }, 1);
   }
 
   redirectToAccueil() {
-    AppComponent.menuPosition = 0;
+    this.menuPosition = 0;
     this.router.navigate(['accueil']);
   }
 
   redirectToModifierCompte(): void {
-    AppComponent.menuPosition = 1;
+    this.menuPosition = 1;
     this.router.navigate(['modifierCompte']);
   }
 
   redirectToseConnecter(): void {
-    AppComponent.menuPosition = 2;
+    this.menuPosition = 2;
     this.router.navigate(['connexion']);
   }
 
   redirectToCreationCompte(): void {
-    AppComponent.menuPosition = 3;
+    this.menuPosition = 3;
     this.router.navigate(['creationCompte']);
   }
 
   redirectToseDeconnecter(): void {
-    AppComponent.menuPosition = 0;
+    this.menuPosition = 0;
     this.isConnected = false;
-    // if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
-      
-    // } 
-    localStorage.removeItem('current_user');
-    localStorage.removeItem('seSouvenirDeMoi');
+    localStorage.removeItem("current_user");
     this.router.navigate(['connexion']);
   }
 
@@ -73,27 +70,28 @@ export class AppComponent implements OnInit, AfterViewInit{
     }
   }
 
-  affichageUser() : string {
+  affichageUser() {
+    const userDisp = document.getElementById("userDisp")!;
     if (this.checkIfConnected()) {
-      return JSON.parse(localStorage.getItem("current_user")!).username;
+      userDisp.textContent = this.connectedUser.username;
     } else {
-      return "";
+      userDisp.textContent = "";
     }
   }
 
   getMenuPosition() {
     return AppComponent.menuPosition;
   }
-
   static setMenuPosition(pos: number) {
     AppComponent.menuPosition = pos;
   }
-
+  
   @HostListener('window:unload', ['$event'])
   unloadHandler(event: any) {
     if (localStorage.getItem("seSouvenirDeMoi") === "false") {
       localStorage.removeItem("current_user");
     }
   }
+  
 
 }
