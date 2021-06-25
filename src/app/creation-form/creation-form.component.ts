@@ -32,8 +32,8 @@ export class CreationFormComponent implements OnInit {
     this.userservice.recupAllUsers();
 
     this.CreationForm= this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
-      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('.*[0-9]+.*'), Validators.pattern('.*[A-Z]+.*'), Validators.pattern('.*[^A-Za-z0-9]+.*')]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), this.existingUserValidator()]],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
     });
 
@@ -57,7 +57,7 @@ export class CreationFormComponent implements OnInit {
       return 'Vous devez entrer un nom d\'utilisateur';
     }
     else if (this.CreationForm.controls.username.hasError('minlength') || this.CreationForm.controls.username.hasError('maxlength')) {
-      return 'Le nom doit comporter entre 3 et 50 caractères';
+      return 'Le nom doit comporter entre 4 et 50 caractères';
     }
     else if (this.CreationForm.controls.username.hasError('existingUser')) {
       return 'Ce nom existe déjà';
@@ -71,7 +71,7 @@ export class CreationFormComponent implements OnInit {
       return 'Vous devez entrer un mot de passe';
     }
     else if (this.CreationForm.controls.password.hasError('minlength') || this.CreationForm.controls.password.hasError('maxlength')) {
-      return 'Le mot de passe doit comporter entre 3 et 50 caractères';
+      return 'Le mot de passe doit comporter entre 4 et 50 caractères';
     }
     else if (this.CreationForm.controls.password.hasError('pattern')) {
       return 'Le mot doit contenir au moins un chiffre, une majuscule et un caractère spécial'

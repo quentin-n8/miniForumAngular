@@ -16,8 +16,8 @@ export class ConnexionComponent implements OnInit {
 
   ngOnInit(): void {
     this.connexionForm = this.formBuilder.group({
-      username: ['', [Validators.minLength(3), Validators.maxLength(50)]],
-      password: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+      username: ['', [Validators.minLength(4), Validators.maxLength(50)]],
+      password: ['', [Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
       rememberMe: false
     })
   }
