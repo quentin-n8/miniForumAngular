@@ -21,13 +21,14 @@ import { SujetsService } from './services/sujetsService';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConnexionComponent } from './connexion/connexion.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle'; 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ModifierCompteGuard } from "./guards/modifier-compte.guard"; 
 
 
 
 const routes: Routes = [
   { path: 'accueil', component: AccueilNewSubjectComponent},
-  { path: 'modifierCompte', component: FormModifierCompteComponent },
+  { path: 'modifierCompte', canActivate: [ModifierCompteGuard], component: FormModifierCompteComponent },
   { path: 'creationCompte', component: CreationFormComponent},
   { path: "sujetDetails/:id", component: SujetDetailsComponent },
   { path: "connexion", component: ConnexionComponent },

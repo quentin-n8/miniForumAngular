@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AppComponent {
   isConnected = false;
   public menuPosition = 0;
+  
 
   constructor(
     private router : Router,
