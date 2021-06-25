@@ -66,10 +66,13 @@ export class UsersService {
       });
   }
 
-  login(credentials: any): void {
-    this.httpClient.post(`${this.apiUrl}login`, credentials).subscribe(user => {
+  login(identifiants: any, seSouvenirDeMoi: boolean): void {
+    this.httpClient.post(`${this.apiUrl}login`, identifiants).subscribe(user => {
       this.user = user;
       this.emitUser();
+      if (!seSouvenirDeMoi) {
+        localStorage.clear();
+      }
     }, error => {
       console.log(error);
     });
