@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidatorFn } from '@angular/forms';
-import { AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { User } from '../modeles/User';
 import { UsersService } from '../services/users.service';
 import { Subscription } from 'rxjs';
@@ -18,6 +16,9 @@ export class FormModifierCompteComponent implements OnInit {
   user!: User;
   usersSubscription!: Subscription;
   usersList: User[] = [];
+  hideMdpActuel=true;
+  hideNvMDP=true;
+  hideConfirPassword = true; 
 
   constructor(private userService: UsersService, private formBuilder: FormBuilder) {
 
@@ -34,10 +35,10 @@ export class FormModifierCompteComponent implements OnInit {
     this.userService.recupAllUsers();
 
     this.myForm = this.formBuilder.group({
-      nvUsername: ['', [Validators.minLength(3), Validators.maxLength(50), this.usernameValidator()]],
+      nvUsername: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.required /*this.usernameValidator()*/]],
       nvPassword: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
       confirPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/), this.passwordConfirmValidator()]],
-      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/), Validators.required /*this.passwordValidator()*/]],
 
     })
   }
@@ -49,10 +50,13 @@ export class FormModifierCompteComponent implements OnInit {
       passwordConfirm: this.myForm.value.confirPassword,
       oldPassword: this.myForm.value.actuelPassword
     };
-    this.userService.modifierUnUser(5, user);
+    this.userService.modifierUnUser(8, user);
   }
 
   getUsernameErrors(): string | void {
+    if (this.myForm.controls.nvUsername.hasError('required')) {
+      return "L'username doit être indiqué";
+    }
     if (this.myForm.controls.nvUsername.hasError('maxlength')) {
       return "Vous avez dépassé le nombre de caractères maximum (50) !";
     }
@@ -60,15 +64,20 @@ export class FormModifierCompteComponent implements OnInit {
     if (this.myForm.controls.nvUsername.hasError('minlength')) {
       return "L'username doit avoir 3 caractères minimum";
     }
-    if (this.myForm.controls.nvUsername.hasError('existingUsername')) {
-      return "Ce username est déjà utilisé !";
-    }
+
+    // if (this.myForm.controls.nvUsername.hasError('existingUsername')) {
+    //   return "Ce username est déjà utilisé !";
+    // }
   }
 
   getActuelPasswordErrors(): string | void {
+    if (this.myForm.controls.actuelPassword.hasError('required')) {
+      return "Le mot de passe actuel doit être indiqué"
+    }
     if (this.myForm.controls.actuelPassword.hasError('pattern')) {
       return "Le mot de passe doit contenir au moins: un chiffre, une majuscule et un caractère spécial"
     }
+
     // if (this.myForm.controls.actuelPassword.hasError('passwordConformity')) {
     //   return "Le mot de passe n'est associé à aucun compte"
     // }
@@ -109,24 +118,24 @@ export class FormModifierCompteComponent implements OnInit {
   };
 
   //Validator Custom pour vérifier que l'username n'existe pas déjà
-  usernameValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+  // usernameValidator(): ValidatorFn {
+  //   return (control: AbstractControl): { [key: string]: any } | null => {
 
-      const searchUser = this.usersList.find(user => user.username === control.value);
-      if (searchUser) {
-        return {
-          existingUsername: { value: '' }
+  //     const searchUser = this.usersList.find(user => user.username === control.value);
+  //     if (searchUser) {
+  //       return {
+  //         existingUsername: { value: '' }
 
-        };
-      } else return null;
-    }
-  };
+  //       };
+  //     } else return null;
+  //   }
+  // };
 
   // passwordValidator(): ValidatorFn {
   //   return (control: AbstractControl): { [key: string]: any } | null => {
 
-  //     const searchPassword = this.usersList.find(user => user.username === "Test30" && user.password === control.value);
-  //     if (searchPassword) {
+  //     const searchPassword = this.usersList.find(user => user.username === "Test50" && user.password === control.value);
+  //     if (!searchPassword) {      
   //       return {
   //         passwordConformity: { value: '' }
 
