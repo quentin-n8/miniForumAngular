@@ -16,11 +16,20 @@ export class ConnexionComponent implements OnInit {
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UsersService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
+    
     this.connexionForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/)]],
+      
+      username: ['', [Validators.minLength(3), Validators.maxLength(50)]],
+      password: ['', [Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/)]],
       seSouvenirDeMoi: false
     });
+
+    if (localStorage.getItem('current_user') !== null) {
+      this.userService.login(JSON.parse(localStorage.getItem('current_user')  || ""), true);
+      this.router.navigate(['accueil']);
+    }
+
+
   }
 
   onSubmit(): void { 

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './modeles/User';
+import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-subject.component';
 
 @Component({
   selector: 'app-root',
