@@ -52,7 +52,7 @@ export class UsersService {
       this.snackbar.open("Nouvel utilisateur enregistré", "Ok");
     }, error => { 
       console.log("Error :"+error);
-      this.snackbar.open("Erreur : Veuillez vérifier votre saisie", "Ok");
+      this.snackbar.open("Le mot de passe actuel n'est associé à aucun compte", "Ok");
     });
 
   }
@@ -61,8 +61,10 @@ export class UsersService {
     this.httpClient.patch<User>(`${this.apiUrl}api/user/${id}`, userModif)
       .subscribe(responseFromApi => {
         console.log(responseFromApi);
+        this.snackbar.open("Nouveau mot de passe enregisté", "Ok");
       }, error => { 
         console.log("Error :" + error);
+        this.snackbar.open("Erreur : Veuillez vérifier le mot de passe actuel saisi", "Ok");
       });
   }
 
