@@ -11,6 +11,7 @@ export class AppComponent implements OnInit{
   isConnected = false;
   connectedUser!: User;
   public menuPosition = 0;
+  
 
   constructor(
     private router : Router,
