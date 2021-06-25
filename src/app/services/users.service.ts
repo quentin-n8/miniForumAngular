@@ -85,6 +85,7 @@ export class UsersService {
       }
     }, error => {
       console.log(error);
+      this.snackbar.open("Aucun utilisateur n'a été trouvé. Veuillez vérifier votre saisie !", "Ok");
     });
   }
 
