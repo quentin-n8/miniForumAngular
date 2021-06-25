@@ -6,6 +6,7 @@ import { SujetsService } from "../services/sujetsService"
 import { UsersService } from '../services/users.service';
 import { SujetDetailsComponent } from '../sujet-details/sujet-details.component';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-accueil-new-subject',
@@ -22,9 +23,21 @@ export class AccueilNewSubjectComponent implements OnInit {
   
 
 
-  constructor(private formBuilder: FormBuilder, private sujetService: SujetsService, private userservice: UsersService) { 
-    
+
+  constructor(private router : Router, private formBuilder: FormBuilder, private sujetService: SujetsService,private userservice: UsersService) { 
+    this.topicSubscription = this.sujetService.topicsSubject.subscribe((topics: Sujet[]) => {
+      this.listeSujetsObjets = topics;
+    });
+    this.sujetService.emitTopics();
+    this.test();
   }
+
+  test(): void {
+    this.sujetService.recupSujet();
+    console.log(this.listeSujetsObjets);
+  }
+
+  
 
   ngOnInit(): void {
 
@@ -162,6 +175,10 @@ export class AccueilNewSubjectComponent implements OnInit {
       listeSujetDiv.appendChild(sujet);
   
     };
+  }
+
+  redirectToSujetDetails(topic_id_selected: number) : void {
+    this.router.navigate(['sujetDetails', topic_id_selected]);
   }
 
 }

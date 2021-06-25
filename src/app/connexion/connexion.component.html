@@ -1,0 +1,11 @@
+<form [formGroup]="connexionForm" (ngSubmit)="onSubmit()">
+    <div>
+        <input type="text" placeholder="Username" name="username" formControlName="username">
+    </div>
+    <div>
+        <input type="password" placeholder="Mot de passe" name="password" formControlName="password">
+    </div>
+    <div>
+        <button mat-button type="submit" [disabled]="connexionForm.invalid">Se connecter</button>
+    </div>
+</form>

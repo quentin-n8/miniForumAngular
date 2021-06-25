@@ -31,6 +31,7 @@ export class AppComponent {
     this.menuPosition = 2;
     this.isConnected = true;
     console.log(this.isConnected);
+    this.router.navigate(['connexion']);
   }
 
   redirectToCreationCompte(): void {
@@ -43,6 +44,8 @@ export class AppComponent {
     this.isConnected = false;
     console.log(this.isConnected);
   }
+
+  
 
 
 }

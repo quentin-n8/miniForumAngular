@@ -11,7 +11,7 @@ export class UsersService {
   usersSubject= new Subject<User[]>();
   user: any;
   userSubject = new Subject<User>();
-  apiUrl= "http://localhost:8080/api"
+  apiUrl= "http://localhost:8080/"
   
   constructor(private httpClient: HttpClient, private snackbar: MatSnackBar) {  
   }
@@ -20,12 +20,12 @@ export class UsersService {
     this.usersSubject.next(this.servicelist);
   }
 
-  emitTopics(): void {
+  emitUser(): void {
     this.userSubject.next(this.user);
   }
   
   recupAllUsers() {
-    this.httpClient.get<User[]>(this.apiUrl+"/user", {observe: "body"})
+    this.httpClient.get<User[]>(this.apiUrl+"api/user", {observe: "body"})
     .subscribe((usersFromApi: User[]) => { 
       this.servicelist= usersFromApi;
       this.emitUsers();
@@ -34,17 +34,17 @@ export class UsersService {
   }
 
   recupUnUser(id: number) {
-    this.httpClient.get<User>(this.apiUrl+`/user/${id}`, {observe: "body"})
+    this.httpClient.get<User>(this.apiUrl+`api/user/${id}`, {observe: "body"})
     .subscribe(usersFromApi => { 
       this.user= usersFromApi;
-      this.emitTopics();
+      this.emitUser();
     }, error => { 
       console.log("Error :"+error);
     });
   }
 
   createUser(user: User){
-    this.httpClient.post<User>(this.apiUrl+"/user", {username: user.username, password: user.password})
+    this.httpClient.post<User>(this.apiUrl+"api/user", {username: user.username, password: user.password})
     .subscribe(responseFromApi => { 
       console.log(responseFromApi);
       this.snackbar.open("Nouvel utilisateur enregistré", "Ok");
@@ -56,12 +56,21 @@ export class UsersService {
   }
 
   modifierUnUser(id: number, userModif: User) {
-    this.httpClient.patch<User>(`${this.apiUrl}/user/${id}`, userModif)
+    this.httpClient.patch<User>(`${this.apiUrl}api/user/${id}`, userModif)
       .subscribe(responseFromApi => {
         console.log(responseFromApi);
       }, error => { 
         console.log("Error :" + error);
       });
+  }
+
+  login(credentials: any): void {
+    this.httpClient.post(`${this.apiUrl}login`, credentials).subscribe(user => {
+      this.user = user;
+      this.emitUser();
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

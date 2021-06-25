@@ -7,7 +7,7 @@
 
 <p *ngFor="let message of getMessages()">
 
-    <!-- Par {{ message.author_id }} -->
+    <!-- Par {{ message.user.username }} -->
     Le {{ convertTimestampEnDate(message.date) }}. <br>
     {{ message.content }}.
 

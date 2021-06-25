@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { Sujet } from '../modeles/sujet';
 import { User } from '../modeles/User';
 import { Message } from '../modeles/message';
@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MessageService } from '../services/messageService';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../services/users.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sujet-details',
@@ -20,10 +21,12 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
   user!: any;
   userSubscription!: Subscription;
   message= new FormControl('', [Validators.required, Validators.minLength(50), Validators.maxLength(3000)]);
+  @Input() topicSelected: any;
 
-  constructor(private userService: UsersService, private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
+  constructor(private activatedRoute: ActivatedRoute, private userService: UsersService, private sujetService: SujetsService, private messageService : MessageService, private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
+    const topicId: number = this.activatedRoute.snapshot.params['id'];                   // x
     this.creationMessage = this.formBuilder.group({
       message: ['', [Validators.required, , Validators.maxLength(3000), Validators.minLength(0)]] 
     });
@@ -31,11 +34,11 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
       this.topic = topic;
     });
     this.sujetService.emitTopics();
-    this.sujetService.recupUnSujet(4);
+    this.sujetService.recupUnSujet(topicId); // this.sujetService.recupUnSujet(4); 
     this.userSubscription = this.userService.userSubject.subscribe((user: User) => {
       this.user = user;
     });
-    this.userService.emitTopics();
+    this.userService.emitUser();
     this.userService.recupUnUser(3);
   }
 
@@ -65,7 +68,6 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     console.log(messageAEnregistrer);
     this.messageService.createMessage(messageAEnregistrer);
     this.creationMessage.reset();
-    //window.location.reload();
   }
 
   getMessages() : Message[] {
