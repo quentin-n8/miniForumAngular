@@ -42,6 +42,8 @@ export class AppComponent {
   redirectToseDeconnecter(): void {
     this.menuPosition = 4;
     this.isConnected = false;
+    localStorage.clear();
+    this.router.navigate(['connexion']);
     console.log(this.isConnected);
   }
 
