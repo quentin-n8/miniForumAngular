@@ -50,7 +50,7 @@ export class AccueilNewSubjectComponent implements OnInit {
 
     setTimeout(() => {
       this.updateDisp();
-    },100);
+    },1);
 
   }
 
