@@ -1,0 +1,39 @@
+body {
+    --bleu-claire: #79A3D4;
+    --bleu: #3D80CC;
+    --bleu-foncé: #0000CD;
+    --transparence: #00000000;
+    --marge: 1em;
+
+    margin: 30px 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form{
+    margin-top: 80px;
+}
+
+input{
+    width: 30%;
+    height:50px;
+    margin-bottom: 13px;
+}
+
+button{
+    width: 30%;
+    font-size: 16px;
+    padding: 0.5%;
+    color: white;
+    font-weight: bold;
+    background-color: #79A3D4;
+    border-color: #3D80CC; 
+    border-width: 2px;
+    margin-bottom: 1%;
+}
+
+div {
+    height:1%;
+    padding-top: 1%;
+    padding-top: 1%;
+    text-align:center;
+  }
