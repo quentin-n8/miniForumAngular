@@ -38,7 +38,7 @@ button:hover {
     border-bottom: 5px solid var(--bleu-foncé);
 }
 
-span.connecteduser {
+.connecteduser {
     position: absolute;
     top: 30px;
     right: 30px;

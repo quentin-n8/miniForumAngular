@@ -4,6 +4,7 @@ import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup,
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from "../modeles/User";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-creation-form',
@@ -37,6 +38,7 @@ export class CreationFormComponent implements OnInit {
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
     });
 
+    AppComponent.setMenuPosition(3);
   }
 
   onSubmit(): void {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-connexion',
@@ -25,6 +26,8 @@ export class ConnexionComponent implements OnInit {
       this.userService.login(JSON.parse(localStorage.getItem('current_user')  || ""), true);
       this.router.navigate(['accueil']);
     }
+
+    AppComponent.setMenuPosition(4);
   }
 
   onSubmit(): void { 
