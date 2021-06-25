@@ -48,7 +48,6 @@ export class AccueilNewSubjectComponent implements OnInit {
     this.userservice.emitUsers();
     this.userservice.recupAllUsers();
 
-
     setTimeout(() => {
       this.updateDisp();
     },1);
