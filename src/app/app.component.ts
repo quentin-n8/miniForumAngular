@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './modeles/User';
 import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-subject.component';
@@ -8,7 +8,7 @@ import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-su
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy {
   isConnected = false;
   connectedUser!: User;
   public menuPosition = 0;
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.checkIfConnected()) {
+      console.log(this.checkIfConnected());
       this.isConnected = true;
       this.connectedUser = JSON.parse(localStorage.getItem("current_user")!);
       console.log(this.connectedUser.username);
@@ -58,7 +59,11 @@ export class AppComponent implements OnInit{
   redirectToseDeconnecter(): void {
     this.menuPosition = 0;
     this.isConnected = false;
-    localStorage.removeItem("current_user");
+    // if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
+      
+    // } 
+    localStorage.removeItem('current_user');
+    localStorage.removeItem('seSouvenirDeMoi');
     this.router.navigate(['connexion']);
   }
 
@@ -76,6 +81,12 @@ export class AppComponent implements OnInit{
       userDisp.textContent = this.connectedUser.username;
     } else {
       userDisp.textContent = "";
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
+      localStorage.removeItem('current_user');
     }
   }
 
