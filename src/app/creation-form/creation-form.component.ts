@@ -4,6 +4,7 @@ import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup,
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from "../modeles/User";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-creation-form',
@@ -19,7 +20,7 @@ export class CreationFormComponent implements OnInit {
   hide1 = true;
   hide2 = true;
   
-  constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router) {
+  constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router, private appComponent: AppComponent) {
   }
 
   ngOnInit(): void {
@@ -52,6 +53,7 @@ export class CreationFormComponent implements OnInit {
       localStorage.setItem('seSouvenirDeMoi', "false");
     }
     this.userservice.login(this.user, this.CreationForm.value.save_localstorage);
+    this.appComponent.ngOnInit();
     this.router.navigate(['accueil']);
   }
 
