@@ -18,7 +18,7 @@ export class ConnexionComponent implements OnInit {
     //localStorage.clear();
     this.connexionForm = this.formBuilder.group({
       username: ['', [Validators.minLength(3), Validators.maxLength(50)]],
-      password: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+      password: ['', [Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/)]],
       seSouvenirDeMoi: false
     });
     if (localStorage.getItem('current_user')) {
