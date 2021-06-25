@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 import { User } from "../modeles/User";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable()
 export class UsersService {
@@ -12,7 +13,7 @@ export class UsersService {
   userSubject = new Subject<User>();
   apiUrl= "http://localhost:8080/api"
   
-  constructor(private httpClient: HttpClient) {  
+  constructor(private httpClient: HttpClient, private snackbar: MatSnackBar) {  
   }
 
   emitUsers() {
@@ -46,8 +47,10 @@ export class UsersService {
     this.httpClient.post<User>(this.apiUrl+"/user", {username: user.username, password: user.password})
     .subscribe(responseFromApi => { 
       console.log(responseFromApi);
+      this.snackbar.open("Nouvel utilisateur enregistré", "Ok");
     }, error => { 
       console.log("Error :"+error);
+      this.snackbar.open("Erreur : Veuillez vérifier votre saisie", "Ok");
     });
 
   }

@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Observable, of, Subscription, timer } from 'rxjs';
-import { map, debounceTime, take, switchMap, delay } from "rxjs/operators";
 import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, Validator, ControlContainer } from '@angular/forms';
 import { UsersService } from '../services/users.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from "../modeles/User";
-import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-creation-form',
@@ -20,7 +19,7 @@ export class CreationFormComponent implements OnInit {
   hide = true;
   save_localstorage= false;
   
-  constructor(private userservice: UsersService, private formBuilder: FormBuilder) {
+  constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router,) {
   }
 
   ngOnInit(): void {
@@ -45,7 +44,7 @@ export class CreationFormComponent implements OnInit {
     if (this.save_localstorage === true) {
       localStorage.setItem('current_user', JSON.stringify(this.user));
     }
-    this._snackBar.open(message, action);
+    this.router.navigate(['accueil']);
   }
 
   ngOnDestroy(): void {
