@@ -81,8 +81,10 @@ export class UsersService {
     this.httpClient.post(`${this.apiUrl}login`, identifiants).subscribe(user => {
       this.user = user;
       this.emitUser();
-      if (!seSouvenirDeMoi) {
-        localStorage.clear();
+      if (seSouvenirDeMoi) {
+        localStorage.setItem('seSouvenirDeMoi', 'true');
+      } else {
+        localStorage.setItem('seSouvenirDeMoi', 'false');
       }
     }, error => {
       console.log(error);
