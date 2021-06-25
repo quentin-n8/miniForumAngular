@@ -16,6 +16,8 @@ export class UsersService {
   constructor(private httpClient: HttpClient, private snackbar: MatSnackBar) {  
   }
 
+  //Subject est un observable, faire .next permet de dire qu'il y a eu un changement et qu'il faut le mettre à jour
+  //Permet de déclencher la méthode avec la requête dans laquelle on a mis le emit en cas de changement
   emitUsers() {
     this.usersSubject.next(this.servicelist);
   }

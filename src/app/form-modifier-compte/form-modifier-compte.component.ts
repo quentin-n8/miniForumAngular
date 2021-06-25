@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
-import { ValidationErrors } from '@angular/forms';
 import { User } from '../modeles/User';
 import { UsersService } from '../services/users.service';
-import {FormControl} from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-modifier-compte',
@@ -17,46 +16,40 @@ export class FormModifierCompteComponent implements OnInit {
 
   myForm!: FormGroup;
   user!: User;
-  listeUsers: User[]=[];
-
+  usersSubscription!: Subscription;
+  usersList: User[] = [];
 
   constructor(private userService: UsersService, private formBuilder: FormBuilder) {
-  
-}
-
-  ngOnInit(): void {
-    this.myForm = this.formBuilder.group({
-      nvUsername: ['', [Validators.minLength(3), Validators.maxLength(50)]],
-      nvPassword: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
-      confirPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/), this.passwordConfirmValidator()]],
-      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
-   
-    })
 
   }
 
-  onSubmit(): void {
-    
-    console.log(this.myForm.value);
-    console.log(this.user);
-  
-     let user={
-       username:this.myForm.value.nvUsername,
-       password:this.myForm.value.nvPassword,
-       passwordConfirm: this.myForm.value.confirPassword,
-       oldPassword: this.myForm.value.actuelPassword
-      };
-    // console.log(this.myForm.value.nvUsername);
+  ngOnInit(): void {
+    this.usersSubscription = this.userService.usersSubject.subscribe((subscription_list: User[]) => {
+      this.usersList = subscription_list;
+      console.log(subscription_list);
+      console.log(this.usersList);
+    });
 
-    // this.user.username=this.myForm.value.nvUsername;
-    // console.log(this.user.username);
-    
-    // this.user.password = this.myForm.value.nvPassword;
-    // console.log(this.user.password);
-    
-    // console.log(this.user);
-    this.userService.modifierUnUser(3, user)
-    
+    this.userService.emitUsers();
+    this.userService.recupAllUsers();
+
+    this.myForm = this.formBuilder.group({
+      nvUsername: ['', [Validators.minLength(3), Validators.maxLength(50), this.usernameValidator()]],
+      nvPassword: ['', [Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+      confirPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/), this.passwordConfirmValidator()]],
+      actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{3,50}$/)]],
+
+    })
+  }
+
+  onSubmit(): void {
+    let user = {
+      username: this.myForm.value.nvUsername,
+      password: this.myForm.value.nvPassword,
+      passwordConfirm: this.myForm.value.confirPassword,
+      oldPassword: this.myForm.value.actuelPassword
+    };
+    this.userService.modifierUnUser(5, user);
   }
 
   getUsernameErrors(): string | void {
@@ -67,13 +60,20 @@ export class FormModifierCompteComponent implements OnInit {
     if (this.myForm.controls.nvUsername.hasError('minlength')) {
       return "L'username doit avoir 3 caractères minimum";
     }
+    if (this.myForm.controls.nvUsername.hasError('existingUsername')) {
+      return "Ce username est déjà utilisé !";
+    }
   }
 
-  getActuelPasswordErrors(): string|void{
+  getActuelPasswordErrors(): string | void {
     if (this.myForm.controls.actuelPassword.hasError('pattern')) {
       return "Le mot de passe doit contenir au moins: un chiffre, une majuscule et un caractère spécial"
     }
+    // if (this.myForm.controls.actuelPassword.hasError('passwordConformity')) {
+    //   return "Le mot de passe n'est associé à aucun compte"
+    // }
   }
+
   getnvPasswordErrors(): string | void {
     if (this.myForm.controls.nvPassword.hasError('maxlength')) {
       return "Vous avez dépassé le nombre de caractères maximum (50) !";
@@ -87,6 +87,7 @@ export class FormModifierCompteComponent implements OnInit {
       return "Le mot de passe doit contenir au moins: un chiffre, une majuscule et un caractère spécial"
     }
   }
+
   getPasswordConfirmErrors(): string | void {
     if (this.myForm.controls.confirPassword.hasError('passwordConfirm')) {
       return "Les mots de passe ne sont pas identiques !";
@@ -95,9 +96,7 @@ export class FormModifierCompteComponent implements OnInit {
 
   // Validator custom permettant de vérifier que le nouveau mot de passe et la confirmation sont identiques
   passwordConfirmValidator(): ValidatorFn {
-
-    return (control: AbstractControl): {
-      [key: string]: any} | null => {
+    return (control: AbstractControl): { [key: string]: any } | null => {
       if (this.myForm && (this.myForm.value.nvPassword !== control.value)) {
         return {
           passwordConfirm: { value: '' }
@@ -108,5 +107,36 @@ export class FormModifierCompteComponent implements OnInit {
       }
     }
   };
+
+  //Validator Custom pour vérifier que l'username n'existe pas déjà
+  usernameValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+
+      const searchUser = this.usersList.find(user => user.username === control.value);
+      if (searchUser) {
+        return {
+          existingUsername: { value: '' }
+
+        };
+      } else return null;
+    }
+  };
+
+  // passwordValidator(): ValidatorFn {
+  //   return (control: AbstractControl): { [key: string]: any } | null => {
+
+  //     const searchPassword = this.usersList.find(user => user.username === "Test30" && user.password === control.value);
+  //     if (searchPassword) {
+  //       return {
+  //         passwordConformity: { value: '' }
+
+  //       };
+  //     } else return null;
+  //   }
+  // }
+
+  ngOnDestroy(): void {
+    this.usersSubscription.unsubscribe();
+  }
 }
 
