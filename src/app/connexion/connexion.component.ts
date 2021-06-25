@@ -23,7 +23,7 @@ export class ConnexionComponent implements OnInit {
       seSouvenirDeMoi: false
     });
 
-    if (localStorage.getItem('current_user')) {
+    if (localStorage.getItem('current_user') !== null) {
       this.userService.login(JSON.parse(localStorage.getItem('current_user')  || ""), true);
       this.router.navigate(['accueil']);
     }

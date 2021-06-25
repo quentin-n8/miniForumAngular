@@ -6,6 +6,7 @@ import { SujetsService } from "../services/sujetsService"
 import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-accueil-new-subject',
@@ -46,7 +47,6 @@ export class AccueilNewSubjectComponent implements OnInit {
     });
     this.userservice.emitUsers();
     this.userservice.recupAllUsers();
-
 
     setTimeout(() => {
       this.updateDisp();

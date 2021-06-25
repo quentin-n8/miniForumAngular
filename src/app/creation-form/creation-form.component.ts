@@ -18,7 +18,6 @@ export class CreationFormComponent implements OnInit {
   userslist: User[]= [];
   hide1 = true;
   hide2 = true;
-  save_localstorage= false;
   
   constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router) {
   }
@@ -35,16 +34,24 @@ export class CreationFormComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50), this.existingUserValidator()]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/)]],
       password_confirm: ['', [Validators.required, this.passwordConfirmValidator()]],
+      save_localstorage: false,
     });
 
   }
 
   onSubmit(): void {
-    this.user= this.CreationForm.value;
+    this.user = {username: this.CreationForm.value.username, password: this.CreationForm.value.password};
+    let userToLogin = {username: this.CreationForm.value.username, password: this.CreationForm.value.password, admin: 0};
     this.userservice.createUser(this.user);
-    if (this.save_localstorage === true) {
-      localStorage.setItem('current_user', JSON.stringify(this.user));
+    localStorage.setItem('current_user', JSON.stringify(userToLogin));
+    
+    if (this.CreationForm.value.save_localstorage) {
+      localStorage.setItem('seSouvenirDeMoi', "true");
     }
+    else {
+      localStorage.setItem('seSouvenirDeMoi', "false");
+    }
+    this.userservice.login(this.user, this.CreationForm.value.save_localstorage);
     this.router.navigate(['accueil']);
   }
 
@@ -120,15 +127,6 @@ export class CreationFormComponent implements OnInit {
             return null;
         }
     };
-  }
-
-  saveUser() {
-    if(this.save_localstorage === false) {
-      this.save_localstorage= true;
-    }
-    else if (this.save_localstorage === true) {
-      this.save_localstorage= false;
-    }
   }
 
 }
