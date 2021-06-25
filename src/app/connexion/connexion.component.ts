@@ -23,8 +23,9 @@ export class ConnexionComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { rememberMe, ...credentials } = this.connexionForm.value;
-    this.userService.login(credentials, rememberMe);
+    const { ...credentials } = this.connexionForm.value;
+    this.userService.login(credentials);
+    console.log(credentials);
     this.router.navigate(['']);
   }
 

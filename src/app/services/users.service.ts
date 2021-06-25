@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 import { User } from "../modeles/User";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable()
 export class UsersService {
@@ -12,14 +13,16 @@ export class UsersService {
   userSubject = new Subject<User>();
   apiUrl= "http://localhost:8080/"
   
-  constructor(private httpClient: HttpClient) {  
+  constructor(private httpClient: HttpClient, private snackbar: MatSnackBar) {  
   }
 
+  //Subject est un observable, faire .next permet de dire qu'il y a eu un changement et qu'il faut le mettre à jour
+  //Permet de déclencher la méthode avec la requête dans laquelle on a mis le emit en cas de changement
   emitUsers() {
     this.usersSubject.next(this.servicelist);
   }
 
-  emitTopics(): void {
+  emitUser(): void {
     this.userSubject.next(this.user);
   }
   
@@ -36,7 +39,7 @@ export class UsersService {
     this.httpClient.get<User>(this.apiUrl+`api/user/${id}`, {observe: "body"})
     .subscribe(usersFromApi => { 
       this.user= usersFromApi;
-      this.emitTopics();
+      this.emitUser();
     }, error => { 
       console.log("Error :"+error);
     });
@@ -46,8 +49,10 @@ export class UsersService {
     this.httpClient.post<User>(this.apiUrl+"api/user", {username: user.username, password: user.password})
     .subscribe(responseFromApi => { 
       console.log(responseFromApi);
+      this.snackbar.open("Nouvel utilisateur enregistré", "Ok");
     }, error => { 
       console.log("Error :"+error);
+      this.snackbar.open("Erreur : Veuillez vérifier votre saisie", "Ok");
     });
 
   }
@@ -61,22 +66,10 @@ export class UsersService {
       });
   }
 
-  login2(user: User) {
-    this.httpClient.patch<User>(`${this.apiUrl}login`, user)
-      .subscribe(responseFromApi => {
-        console.log(responseFromApi);
-      }, error => { 
-        console.log("Error :" + error);
-      });
-  }
-
-  login(credentials: any, rememberMe: boolean): void {
+  login(credentials: any): void {
     this.httpClient.post(`${this.apiUrl}login`, credentials).subscribe(user => {
       this.user = user;
-      if (rememberMe) {
-        localStorage.setItem('user', JSON.stringify(this.user));
-      }
-      this.emitTopics();
+      this.emitUser();
     }, error => {
       console.log(error);
     });

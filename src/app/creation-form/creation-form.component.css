@@ -13,3 +13,26 @@
   width:98%;
   text-align:center;
 }
+
+mat-form-field {
+  width: 98%;
+}
+
+.checkbox {
+  padding-top: 60px;
+}
+
+.button {
+  width: 250px;
+  height:100%;
+  font-size:70%;
+  text-align:flex;
+  font-size: 1.2em;
+}
+
+div {
+  height:1%;
+  padding-top: 1%;
+  padding-top: 1%;
+  text-align:center;
+}
