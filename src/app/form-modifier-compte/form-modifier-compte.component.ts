@@ -27,8 +27,7 @@ export class FormModifierCompteComponent implements OnInit {
   ngOnInit(): void {
     this.usersSubscription = this.userService.usersSubject.subscribe((subscription_list: User[]) => {
       this.usersList = subscription_list;
-      console.log(subscription_list);
-      console.log(this.usersList);
+
     });
 
     this.userService.emitUsers();

@@ -1,35 +1,38 @@
-.modifierUsername .mat-form-field + .mat-form-field {
-    position:relative;
-    margin:1%;
-    height:10%;
-    width:98%;
-    text-align:center;
-  }
-
-  .password .mat-form-field + .mat-form-field {
-    position:relative;
-	  margin:1%;
-	  height:10%;
-	  width:98%;
-	  text-align:center;
-}
-
 mat-form-field {
     width: 98%;
   }
-
+.mat-form-field-wrapper ng-tns-c85-3{
+  padding: 0;
+}
 .button {
      width: 250px;
     height:100%;
     font-size:70%;
     text-align:flex;
-    font-size: 1.2em;
+    font-size: 1.0em;
 }
 
 div {
     height:1%;
     padding-top: 1%;
-    padding-top: 1%;
     text-align:center;
+    padding-bottom: 1%;
+}
+
+.Username{
+  padding: 0;
+  padding-top: 2%;
+}
+
+.mdpActuel{
+  padding:0;
+}
+
+.nvPassword{
+  padding:0;
+}
+
+.confirPassword{
+  padding:0;
 }
 
