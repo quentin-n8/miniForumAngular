@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   ngOnInit(): void {
     if (this.checkIfConnected()) {
+      console.log(this.checkIfConnected());
       this.isConnected = true;
     } else {
       this.isConnected = false;
@@ -55,7 +56,11 @@ export class AppComponent implements OnInit, AfterViewInit{
   redirectToseDeconnecter(): void {
     AppComponent.menuPosition = 0;
     this.isConnected = false;
-    localStorage.removeItem("current_user");
+    // if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
+      
+    // } 
+    localStorage.removeItem('current_user');
+    localStorage.removeItem('seSouvenirDeMoi');
     this.router.navigate(['connexion']);
   }
 
