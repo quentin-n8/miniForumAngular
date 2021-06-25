@@ -38,6 +38,7 @@ export class CreationFormComponent implements OnInit {
       save_localstorage: false,
     });
 
+    AppComponent.setMenuPosition(3);
   }
 
   onSubmit(): void {

@@ -29,7 +29,7 @@ export class ConnexionComponent implements OnInit {
       this.router.navigate(['accueil']);
     }
 
-
+    AppComponent.setMenuPosition(4);
   }
 
   onSubmit(): void { 
