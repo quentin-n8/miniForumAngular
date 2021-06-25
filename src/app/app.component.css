@@ -5,7 +5,7 @@ body {
     --transparence: #00000000;
     --marge: 1em;
 
-    margin: 30px 50px;
+    margin: 20px 100px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5em;
 }
@@ -14,6 +14,7 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     height: 80px;
+    padding-top: 50px;
 }
 
 button.headerB {
@@ -35,4 +36,15 @@ button.hSelected {
 
 button:hover {
     border-bottom: 5px solid var(--bleu-foncé);
+}
+
+span.connecteduser {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #ffffff;
+    background-color: #0000CD;
+    font-size: 1em;
+    padding: 0.5em;
+    border-radius: 0.5em;
 }

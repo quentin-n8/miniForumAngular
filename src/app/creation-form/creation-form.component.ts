@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { Observable, of, Subscription, timer } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AbstractControl, AsyncValidatorFn, ValidatorFn, FormBuilder, FormGroup, NgForm, FormControl, Validators, Validator, ControlContainer } from '@angular/forms';
 import { UsersService } from '../services/users.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,10 +16,11 @@ export class CreationFormComponent implements OnInit {
   user!: User;
   usersSubscription!: Subscription;
   userslist: User[]= [];
-  hide = true;
+  hide1 = true;
+  hide2 = true;
   save_localstorage= false;
   
-  constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router,) {
+  constructor(private userservice: UsersService, private formBuilder: FormBuilder, private router : Router) {
   }
 
   ngOnInit(): void {

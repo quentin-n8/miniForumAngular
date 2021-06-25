@@ -39,7 +39,7 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
       this.user = user;
     });
     this.userService.emitUser();
-    this.userService.recupUnUser(3);
+    this.userService.recupUnUser(1);
   }
 
   titreSujet(): string {
