@@ -8,6 +8,7 @@ import { MessageService } from '../services/messageService';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../services/users.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-sujet-details',
@@ -40,6 +41,8 @@ export class SujetDetailsComponent implements OnInit, OnDestroy {
     });
     this.userService.emitUser();
     this.userService.recupUnUser(1);
+    
+    AppComponent.setMenuPosition(0);
   }
 
   titreSujet(): string {

@@ -52,6 +52,8 @@ export class AccueilNewSubjectComponent implements OnInit {
       this.updateDisp();
     },1);
 
+    AppComponent.setMenuPosition(0);
+
   }
 
   ngOnDestroy(): void {

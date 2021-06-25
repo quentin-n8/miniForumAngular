@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
 import { User } from '../modeles/User';
 import { UsersService } from '../services/users.service';
 import { Subscription } from 'rxjs';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-form-modifier-compte',
@@ -40,6 +41,8 @@ export class FormModifierCompteComponent implements OnInit {
       actuelPassword: ['', [Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{4,50}$/), Validators.required]],
 
     })
+
+    AppComponent.setMenuPosition(1);
   }
 
   onSubmit(): void {

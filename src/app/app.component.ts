@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './modeles/User';
 import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-subject.component';
@@ -8,56 +8,54 @@ import { AccueilNewSubjectComponent } from './accueil-new-subject/accueil-new-su
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, AfterViewInit{
   isConnected = false;
   connectedUser!: User;
-  public menuPosition = 0;
+  static menuPosition = 0;
   
 
   constructor(
     private router : Router,
     private route: ActivatedRoute
   ) {
-    this.menuPosition = 0;
+    AppComponent.menuPosition = 0;
+  }
+
+  ngAfterViewInit(): void {
+    this.affichageUser();
   }
 
   ngOnInit(): void {
     if (this.checkIfConnected()) {
       console.log(this.checkIfConnected());
       this.isConnected = true;
-      this.connectedUser = JSON.parse(localStorage.getItem("current_user")!);
-      console.log(this.connectedUser.username);
     } else {
       this.isConnected = false;
-      this.connectedUser = JSON.parse("");
     }
-    setTimeout(() => {
-      this.affichageUser();
-    }, 1);
   }
 
   redirectToAccueil() {
-    this.menuPosition = 0;
+    AppComponent.menuPosition = 0;
     this.router.navigate(['accueil']);
   }
 
   redirectToModifierCompte(): void {
-    this.menuPosition = 1;
+    AppComponent.menuPosition = 1;
     this.router.navigate(['modifierCompte']);
   }
 
   redirectToseConnecter(): void {
-    this.menuPosition = 2;
+    AppComponent.menuPosition = 2;
     this.router.navigate(['connexion']);
   }
 
   redirectToCreationCompte(): void {
-    this.menuPosition = 3;
+    AppComponent.menuPosition = 3;
     this.router.navigate(['creationCompte']);
   }
 
   redirectToseDeconnecter(): void {
-    this.menuPosition = 0;
+    AppComponent.menuPosition = 0;
     this.isConnected = false;
     // if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
       
@@ -75,20 +73,27 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  affichageUser() {
-    const userDisp = document.getElementById("userDisp")!;
+  affichageUser() : string {
     if (this.checkIfConnected()) {
-      userDisp.textContent = this.connectedUser.username;
+      return JSON.parse(localStorage.getItem("current_user")!).username;
     } else {
-      userDisp.textContent = "";
+      return "";
     }
   }
 
-  ngOnDestroy(): void {
-    if (localStorage.getItem('seSouvenirDeMoi') === 'false') {
-      localStorage.removeItem('current_user');
-    }
+  getMenuPosition() {
+    return AppComponent.menuPosition;
   }
 
+  static setMenuPosition(pos: number) {
+    AppComponent.menuPosition = pos;
+  }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event: any) {
+    if (localStorage.getItem("seSouvenirDeMoi") === "false") {
+      localStorage.removeItem("current_user");
+    }
+  }
 
 }
